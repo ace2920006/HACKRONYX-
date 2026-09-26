@@ -152,6 +152,12 @@ through the TiTiler proxy, and a **Live satellite** block (Earth Engine true
 colour / false colour / NDTI / NDCI / MNDWI, latest pass or cloud-free composite)
 → timeline scrubber over observations → indicator panel with value, baseline, z
 and deviation per zone → Recharts series with the seasonal p10-p90 band.
+Includes a **Map Search Widget** to locate water bodies efficiently, and a 
+**Lake Details Drawer** providing a comprehensive view of the selected lake's metrics.
+
+**Trends Page** (`/trends`) — shows aggregated temporal trends, historical baseline patterns, and anomalies across all indicators.
+
+**Indicators Page** (`/indicators`) — deep dive into specific indicators for detailed water quality analysis.
 
 **Alerts** (`/alerts`) — every alert ranked by priority with server-side
 filters (status, severity, min priority, district); click opens the alert sheet:
@@ -169,6 +175,8 @@ when scenes exist, **Report** (PDF) and **CSV** export the run: a summary page
 image, water mask, turbidity and chlorophyll rasters and the per-zone data.
 
 `?wb=` and `?alert=` in the URL make any state a shareable demo link.
+
+**Telegram Bot** — A Telegram integration for notifications, checking water body statuses, and quick inquiries directly from your mobile device.
 
 ## Quick start
 
@@ -298,6 +306,7 @@ Interactive docs at http://localhost:8000/docs. All product endpoints are under
 | `GET /imagery/status`, `GET /imagery/live?bbox=&vis=&date=&days=&composite=` | Earth Engine session status; styled live map id (XYZ template served by Google) |
 | `GET /methodology` | The method, indicators with scientific basis, parameters, limitations |
 | `GET /tiles/{layer}/{water_body_id}/{date}/{z}/{x}/{y}.png`, `/tiles/chip/{key}/...`, `/tiles/styles` | Styled raster tiles for indicator, water-mask and anomaly chips |
+| `GET /wishlist`, `POST /wishlist`, `GET /wishlist/recents` | Manage water body wishlist and recent views |
 
 ## Layer-by-layer details
 
