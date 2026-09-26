@@ -1,0 +1,101 @@
+[project]
+name = "jalnetra-backend"
+version = "0.1.0"
+description = "JalNetra — satellite-based water quality anomaly intelligence for Maharashtra (backend)"
+requires-python = ">=3.11,<3.13"
+dependencies = [
+    "fastapi>=0.115",
+    "uvicorn[standard]>=0.30",
+    "pydantic>=2.8",
+    "pydantic-settings>=2.4",
+    "sqlalchemy[asyncio]>=2.0.30",
+    "asyncpg>=0.29",
+    "psycopg[binary]>=3.2",
+    "geoalchemy2>=0.15",
+    "alembic>=1.13",
+    "celery[redis]>=5.4",
+    "redis>=5.0",
+    "minio>=7.2",
+    "httpx>=0.27",
+    "geopandas>=1.0",
+    "shapely>=2.0",
+    "pyogrio>=0.9",
+    "pyproj>=3.6",
+    "numpy>=1.26",
+    "scikit-learn>=1.5",
+    "mgrs>=1.4",
+    "pystac-client>=0.8",
+    "pystac>=1.10",
+    "rasterio>=1.4",
+    "tenacity>=8.4",
+    "scipy>=1.13",
+    "reportlab>=4.2",
+    "matplotlib>=3.9",
+    "jinja2>=3.1",
+    "slowapi>=0.1.9",
+    "python-multipart>=0.0.9",
+    "prometheus-client>=0.20",
+    "earthengine-api>=1.5",
+    "python-telegram-bot>=22.8",
+    "openai>=3.19.2",
+]
+
+[project.optional-dependencies]
+# Learned priority model (S7). The weighted model needs neither; install with
+# `uv sync --extra ml` once >= 50 validations exist and you want to train.
+ml = [
+    "xgboost>=2.0",
+    "shap>=0.46",
+]
+# Error reporting + task monitoring (S12). Flower runs as its own compose service.
+ops = [
+    "sentry-sdk[fastapi,celery,sqlalchemy]>=2.0",
+    "flower>=2.0",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.3",
+    "pytest-asyncio>=0.24",
+    "ruff>=0.6",
+    "mypy>=1.11",
+    "types-PyYAML>=6.0",
+]
+
+[tool.uv]
+package = false
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+extend-exclude = ["app/db/migrations/versions"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "N", "W", "SIM", "RUF"]
+ignore = ["B008"]  # FastAPI Depends() in defaults
+
+[tool.ruff.lint.isort]
+known-first-party = ["app"]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+plugins = ["pydantic.mypy"]
+exclude = ["app/db/migrations/versions/"]
+
+[[tool.mypy.overrides]]
+module = ["celery.*", "minio.*", "geoalchemy2.*", "kombu.*", "geopandas.*", "shapely.*", "sklearn.*", "mgrs.*", "pyproj.*", "pyogrio.*", "rasterio.*", "affine.*", "pystac_client.*", "scipy.*", "xgboost.*", "shap.*", "reportlab.*", "matplotlib.*", "slowapi.*", "sentry_sdk.*", "prometheus_client.*", "ee.*", "google.*", "googleapiclient.*"]
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+# Celery task/signal decorators are untyped.
+module = ["app.workers.*", "tests.test_workers"]
+disallow_untyped_decorators = false
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+markers = [
+    "integration: needs the live docker compose stack (set JALNETRA_INTEGRATION=1)",
+]

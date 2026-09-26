@@ -1,0 +1,303 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* ── HydroSentinal Design System ──
+       Stitch MCP · Light/Clean palette with aquatic accents
+       Design ID: assets/9050965843996776336  */
+
+    /* Core surfaces — clean light palette */
+    --background: 210 40% 98%;        /* #F0F5FA */
+    --foreground: 213 40% 16%;        /* #1B2A3D */
+
+    --card: 0 0% 100%;                /* #FFFFFF */
+    --card-foreground: 213 40% 16%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 213 40% 16%;
+
+    /* Primary — cerulean blue (#0096C7) */
+    --primary: 195 100% 39%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Secondary — aquamarine (#48CAE4) */
+    --secondary: 192 74% 59%;
+    --secondary-foreground: 0 0% 100%;
+
+    /* Muted — soft cloud gray */
+    --muted: 210 30% 94%;
+    --muted-foreground: 213 20% 46%;
+
+    /* Accent — aqua tint */
+    --accent: 195 80% 95%;
+    --accent-foreground: 195 100% 28%;
+
+    /* Destructive — alert coral */
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    /* Borders — soft silver */
+    --border: 214 25% 88%;
+    --input: 214 25% 88%;
+    --ring: 195 100% 39%;
+
+    --radius: 0.75rem;
+
+    /* ── Extended HydroSentinal Tokens ── */
+    --hs-cerulean: 195 100% 39%;           /* #0096C7 */
+    --hs-aquamarine: 192 74% 59%;          /* #48CAE4 */
+    --hs-emerald: 163 100% 45%;            /* #00E5B0 */
+    --hs-amber: 32 100% 64%;              /* #FFB347 */
+    --hs-coral: 0 84% 60%;                /* #EF4444 */
+
+    --hs-text-primary: 213 40% 16%;
+    --hs-text-secondary: 213 20% 46%;
+    --hs-text-tertiary: 213 15% 62%;
+
+    /* Glass layers — light frosted glass */
+    --hs-glass-bg: rgba(255, 255, 255, 0.7);
+    --hs-glass-border: rgba(0, 150, 199, 0.12);
+    --hs-glass-border-hover: rgba(0, 150, 199, 0.35);
+    --hs-glass-glow: 0 0 20px rgba(0, 150, 199, 0.12);
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+}
+
+/* ── Glassmorphism Utilities ── */
+@layer components {
+  .glass-card {
+    background: var(--hs-glass-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--hs-glass-border);
+    border-radius: var(--radius);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .glass-card:hover {
+    border-color: var(--hs-glass-border-hover);
+    box-shadow: var(--hs-glass-glow);
+  }
+
+  .glass-elevated {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(0, 150, 199, 0.15);
+    box-shadow: 0 12px 32px -8px rgba(0, 0, 0, 0.08);
+  }
+
+  .glass-sidebar {
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-right: 1px solid rgba(0, 150, 199, 0.08);
+  }
+
+  /* Status pill badges */
+  .status-pill {
+    @apply inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold;
+  }
+  .status-pill-normal {
+    background: rgba(0, 229, 176, 0.1);
+    color: #059669;
+    border: 1px solid rgba(0, 229, 176, 0.25);
+  }
+  .status-pill-watch {
+    background: rgba(255, 179, 71, 0.1);
+    color: #D97706;
+    border: 1px solid rgba(255, 179, 71, 0.25);
+  }
+  .status-pill-alert {
+    background: rgba(239, 68, 68, 0.08);
+    color: #DC2626;
+    border: 1px solid rgba(239, 68, 68, 0.2);
+  }
+
+  /* Heading typography — Space Grotesk */
+  .heading-display {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+  }
+
+  .heading-xl {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 2.25rem;
+    font-weight: 700;
+    line-height: 2.75rem;
+    letter-spacing: -0.02em;
+  }
+
+  .heading-lg {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.75rem;
+    font-weight: 600;
+    line-height: 2.25rem;
+    letter-spacing: -0.015em;
+  }
+
+  .heading-md {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.375rem;
+    font-weight: 600;
+    line-height: 1.875rem;
+  }
+
+  .heading-sm {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.125rem;
+    font-weight: 600;
+    line-height: 1.625rem;
+  }
+
+  .label-caps {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    line-height: 0.875rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  /* Metric values — tabular nums for alignment */
+  .metric-value {
+    font-family: 'Space Grotesk', sans-serif;
+    font-variant-numeric: tabular-nums;
+    font-weight: 700;
+  }
+
+  /* Active glow effect for interactive elements */
+  .glow-primary {
+    box-shadow: 0 0 20px rgba(0, 150, 199, 0.18);
+  }
+
+  .glow-emerald {
+    box-shadow: 0 0 16px rgba(0, 229, 176, 0.15);
+  }
+
+  .glow-coral {
+    box-shadow: 0 0 16px rgba(239, 68, 68, 0.15);
+  }
+
+  /* Gradient divider */
+  .divider-gradient {
+    height: 1px;
+    background: linear-gradient(90deg, rgba(0, 150, 199, 0.15) 0%, transparent 100%);
+  }
+}
+
+/* ── Animations ── */
+@layer utilities {
+  @keyframes hs-pulse {
+    0% { box-shadow: 0 0 0 0 rgba(0, 150, 199, 0.35); }
+    70% { box-shadow: 0 0 0 8px rgba(0, 150, 199, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(0, 150, 199, 0); }
+  }
+
+  @keyframes hs-pulse-emerald {
+    0% { box-shadow: 0 0 0 0 rgba(0, 229, 176, 0.35); }
+    70% { box-shadow: 0 0 0 6px rgba(0, 229, 176, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(0, 229, 176, 0); }
+  }
+
+  @keyframes hs-float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-4px); }
+  }
+
+  .animate-hs-pulse {
+    animation: hs-pulse 2s ease-in-out infinite;
+  }
+
+  .animate-hs-pulse-emerald {
+    animation: hs-pulse-emerald 2s ease-in-out infinite;
+  }
+
+  .animate-hs-float {
+    animation: hs-float 3s ease-in-out infinite;
+  }
+}
+
+/* Leaflet lives inside a flex layout; without this the map collapses to 0px. */
+.leaflet-container {
+  height: 100%;
+  width: 100%;
+  background: #dbe7f0;
+  font-family: inherit;
+}
+.leaflet-control-attribution {
+  font-size: 10px;
+}
+.leaflet-popup-content-wrapper {
+  border-radius: 12px;
+  box-shadow: 0 8px 24px -8px rgb(15 23 42 / 0.12);
+}
+.leaflet-popup-content {
+  margin: 10px 12px;
+  font-size: 12px;
+}
+
+/* Alert markers on the map. */
+.jn-alert-marker {
+  background: transparent;
+  border: 0;
+}
+.jn-alert-marker span {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 9999px;
+  border: 2px solid #fff;
+  box-shadow: 0 0 0 2px rgb(15 23 42 / 0.25);
+}
+.jn-alert-marker.pulse span {
+  animation: jn-pulse 1.8s ease-out infinite;
+}
+@keyframes jn-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgb(185 28 28 / 0.55);
+  }
+  100% {
+    box-shadow: 0 0 0 12px rgb(185 28 28 / 0);
+  }
+}
+
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 150, 199, 0.15);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 150, 199, 0.3);
+}

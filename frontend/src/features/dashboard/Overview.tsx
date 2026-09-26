@@ -1,0 +1,224 @@
+import { useMemo } from "react";
+import { useIndicators, useJob, useObservations, useWaterBody } from "@/api/hooks";
+import { ApiError } from "@/api/http";
+import { EmptyState, NotFoundState } from "@/components/States";
+import { StatTile, type Tone } from "@/components/StatTile";
+import { Skeleton } from "@/components/ui/skeleton";
+import { fmtDate, fmtKm2, fmtSigned, indicatorShortLabel, statusLabel } from "@/lib/format";
+import { cn } from "@/lib/utils";
+import { useUi } from "@/store/ui";
+import { FetchSatelliteButton } from "./FetchSatelliteButton";
+import { MapView } from "./MapView";
+
+/**
+ * The landing screen: where the anomaly is (map) and the four numbers that say
+ * whether it needs attention. Everything that needs a table, a time axis or a
+ * queue lives one click away — this screen stays readable at a glance.
+ */
+export function Overview() {
+  const waterBodyId = useUi((s) => s.waterBodyId);
+  const date = useUi((s) => s.date);
+  const jobId = useUi((s) => s.jobId);
+  const body = useWaterBody(waterBodyId);
+  const observations = useObservations(waterBodyId);
+  const indicators = useIndicators(waterBodyId, date ?? undefined);
+  const job = useJob(jobId);
+  // A real, in-flight fetch for this exact lake -- not a fabricated result,
+  // just an honest "this is already happening" while the tiles wait on it.
+  const fetchingThisBody =
+    job.data?.water_body_id === waterBodyId &&
+    (job.data.status === "queued" || job.data.status === "running");
+
+  // The strongest signed z-score on this scene: the headline finding, if any.
+  const peak = useMemo(() => {
+    let best: { z: number; label: string; zone: string } | null = null;
+    for (const zone of indicators.data?.zones ?? []) {
+      for (const r of zone.indicators) {
+        if (r.baseline_status !== "usable" || r.z_score === null || r.z_score === undefined) continue;
+        if (!best || Math.abs(r.z_score) > Math.abs(best.z))
+          best = { z: r.z_score, label: indicatorShortLabel(r.key), zone: zone.zone_name };
+      }
+    }
+    return best;
+  }, [indicators.data]);
+
+  // No usable baseline yet (new water body) shouldn't mean a dead "Building"
+  // tile -- the current scene's own turbidity/chlorophyll reading is already
+  // computed, just not yet z-scored against history.
+  const buildingReading = useMemo(() => {
+    if (peak) return null;
+    const readings = indicators.data?.zones?.[0]?.indicators ?? [];
+    const ndti = readings.find((r) => r.key === "ndti_turbidity");
+    if (ndti?.value != null) {
+      return { text: `NDTI: ${ndti.value.toFixed(2)} (${ndti.value > 0.1 ? "Turbid" : "Clear"})` };
+    }
+    const ndci = readings.find((r) => r.key === "ndci_chlorophyll");
+    if (ndci?.value != null) {
+      return { text: `NDCI: ${ndci.value.toFixed(2)} (${ndci.value > 0.05 ? "High Algae" : "Normal"})` };
+    }
+    return null;
+  }, [peak, indicators.data]);
+
+  const scene = indicators.data?.observed_on ?? null;
+  const observation = useMemo(
+    () => (observations.data?.items ?? []).find((o) => o.observed_on === scene),
+    [observations.data, scene],
+  );
+
+  if (!waterBodyId)
+    return (
+      <EmptyState
+        title="Select a water body"
+        hint="Pick one from the bar above to see its current state."
+      />
+    );
+  if (body.error instanceof ApiError && body.error.status === 404)
+    return <NotFoundState id={waterBodyId} />;
+
+  const wb = body.data;
+  const loading = body.isLoading || indicators.isLoading;
+  const peakTone: Tone = !peak ? "neutral" : Math.abs(peak.z) > 5 ? "critical" : Math.abs(peak.z) > 3 ? "warning" : "good";
+  const clearPct = observation?.valid_pixel_pct ?? null;
+
+  return (
+    <div className="flex h-full flex-col">
+      {/* Identity strip — one line, so the map keeps the space. */}
+      <div className="flex items-center gap-3 border-b border-[#0096C7]/8 bg-card px-4 py-2.5 text-xs">
+        <span className="font-display truncate text-sm font-bold tracking-tight text-foreground">
+          {wb?.name ?? waterBodyId}
+        </span>
+        <span className="truncate text-muted-foreground">
+          {wb ? `${wb.district} · ${fmtKm2(wb.area_km2)} · tier ${wb.tier}` : ""}
+        </span>
+        {wb && waterBodyId && (
+          <FetchSatelliteButton waterBodyId={waterBodyId} lakeName={wb.name} className="h-7 shrink-0 rounded-xl px-3 py-0 text-[11px]" />
+        )}
+        <span className="ml-auto shrink-0 text-muted-foreground">
+          {scene ? `Scene ${fmtDate(scene)}` : "No scene yet"}
+        </span>
+        {wb && (
+          <span
+            className={cn(
+              "flex shrink-0 items-center gap-1.5 rounded-full border px-3 py-1 text-[11px] font-semibold",
+              wb.status === "alert" && "border-red-200 bg-red-50 text-red-700",
+              wb.status === "watch" && "border-amber-200 bg-amber-50 text-amber-700",
+              wb.status === "normal" && "border-emerald-200 bg-emerald-50 text-emerald-700",
+              wb.status === "baseline_building" && "border-blue-200 bg-blue-50 text-blue-700",
+              wb.status === "no_data" && "border-slate-200 bg-slate-50 text-slate-600",
+            )}
+          >
+            <span className={cn(
+              "h-1.5 w-1.5 rounded-full",
+              wb.status === "alert" && "bg-red-500",
+              wb.status === "watch" && "bg-amber-500",
+              wb.status === "normal" && "bg-emerald-500",
+              wb.status === "baseline_building" && "bg-blue-400",
+              wb.status === "no_data" && "bg-slate-400",
+            )} />
+            {statusLabel[wb.status] ?? wb.status}
+          </span>
+        )}
+      </div>
+
+      {/* The four headline numbers. Each one is the door to the screen behind it. */}
+      <div className="grid shrink-0 grid-cols-2 gap-3 p-4 lg:grid-cols-4">
+        {loading
+          ? [0, 1, 2, 3].map((i) => <Skeleton key={i} className="h-[5.5rem] rounded-xl" />)
+          : [
+              <StatTile
+                key="alerts"
+                label="Open alerts"
+                value={String(wb?.open_alerts ?? 0)}
+                sub={
+                  wb?.open_alerts
+                    ? `Highest severity ${wb.max_open_severity ?? "—"}`
+                    : "Nothing awaiting investigation"
+                }
+                tone={wb?.open_alerts ? (wb.max_open_severity === "high" ? "critical" : "warning") : "good"}
+                to="/alerts"
+                cta="Queue"
+              />,
+              <StatTile
+                key="peak"
+                label="Strongest anomaly"
+                value={
+                  peak
+                    ? `${fmtSigned(peak.z)}σ`
+                    : buildingReading
+                      ? buildingReading.text
+                      : indicators.data?.scene_id
+                        ? "Building"
+                        : fetchingThisBody
+                          ? "Fetching…"
+                          : "No scenes yet"
+                }
+                sub={
+                  peak
+                    ? `${peak.label} · ${peak.zone}`
+                    : buildingReading
+                      ? "Current Sentinel-2 observation · Baseline in progress"
+                      : indicators.data?.scene_id
+                        ? "No baseline on this scene yet"
+                        : fetchingThisBody
+                          ? "Sentinel-2 pass downloading — usually under a minute"
+                          : "Fetch satellite data above to begin monitoring"
+                }
+                tone={peakTone}
+                to="/indicators"
+                cta="Indicators"
+              />,
+              <StatTile
+                key="extent"
+                label="Water extent"
+                value={
+                  observation?.water_extent_km2 != null
+                    ? fmtKm2(observation.water_extent_km2)
+                    : fetchingThisBody
+                      ? "Fetching…"
+                      : "No data yet"
+                }
+                sub={
+                  wb
+                    ? observation?.water_extent_km2 != null
+                      ? `Registered outline ${fmtKm2(wb.area_km2)}${
+                          wb.area_km2 ? ` · ${((observation.water_extent_km2 / wb.area_km2) * 100).toFixed(0)}% full` : ""
+                        }`
+                      : fetchingThisBody
+                        ? "Sentinel-2 pass downloading — usually under a minute"
+                        : `Registered outline ${fmtKm2(wb.area_km2)} · fetch satellite data to measure it`
+                    : undefined
+                }
+                tone="neutral"
+                to="/trends"
+                cta="Trends"
+              />,
+              <StatTile
+                key="scene"
+                label="Scene quality"
+                value={
+                  clearPct !== null
+                    ? `${clearPct.toFixed(0)}% clear`
+                    : fetchingThisBody
+                      ? "Fetching…"
+                      : "No data yet"
+                }
+                sub={
+                  observation
+                    ? `${observation.cloud_pct.toFixed(0)}% cloud · ${observation.stage}`
+                    : fetchingThisBody
+                      ? "Sentinel-2 pass downloading — usually under a minute"
+                      : "Fetch satellite data above to check scene quality"
+                }
+                tone={clearPct === null ? "neutral" : clearPct < 40 ? "warning" : "good"}
+                to="/trends"
+                cta="History"
+              />,
+            ]}
+      </div>
+
+      <div className="min-h-0 flex-1 border-t">
+        <MapView />
+      </div>
+    </div>
+  );
+}

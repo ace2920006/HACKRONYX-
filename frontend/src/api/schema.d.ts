@@ -1,0 +1,2898 @@
+export interface paths {
+    "/health": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Health */
+        get: operations["health_health_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/tiles/chip/{chip}/{z}/{x}/{y}.png": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Chip Tile */
+        get: operations["chip_tile_tiles_chip__chip___z___x___y__png_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/tiles/{layer}/{water_body_id}/{on}/{z}/{x}/{y}.png": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Layer Tile
+         * @description Body-scope chip of ``layer`` (``watermask``, ``ndti_turbidity``, ... or an alias
+         *     such as ``turbidity``) for a water body on a date.
+         */
+        get: operations["layer_tile_tiles__layer___water_body_id___on___z___x___y__png_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/tiles/styles": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Tile Styles
+         * @description The style applied per layer, for the legend.
+         */
+        get: operations["tile_styles_tiles_styles_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/water-bodies": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List Water Bodies
+         * @description Registered water bodies with tier, area, latest observation and status.
+         */
+        get: operations["list_water_bodies_api_v1_water_bodies_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/water-bodies/{water_body_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Water Body
+         * @description Detail with the GeoJSON boundary and zone polygons.
+         */
+        get: operations["get_water_body_api_v1_water_bodies__water_body_id__get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/water-bodies/{water_body_id}/observations": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List Observations
+         * @description Available dates with cloud cover, usability and the stage each scene reached.
+         */
+        get: operations["list_observations_api_v1_water_bodies__water_body_id__observations_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/water-bodies/{water_body_id}/indicators": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Indicators
+         * @description Indicator values for the latest scene on/before ``date``, with the
+         *     DOY-matched baseline and the deviation, per zone.
+         */
+        get: operations["get_indicators_api_v1_water_bodies__water_body_id__indicators_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/water-bodies/{water_body_id}/series": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Series
+         * @description Zone time series for charting, each point with its seasonal band and z.
+         */
+        get: operations["get_series_api_v1_water_bodies__water_body_id__series_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/alerts": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List Alerts
+         * @description Alert list, priority descending.
+         */
+        get: operations["list_alerts_api_v1_alerts_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/alerts.geojson": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Alerts Geojson
+         * @description Open alerts as a FeatureCollection; ``priority_score`` in properties drives map styling.
+         */
+        get: operations["alerts_geojson_api_v1_alerts_geojson_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/alerts/{alert_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get Alert */
+        get: operations["get_alert_api_v1_alerts__alert_id__get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/alerts/{alert_id}/geometry.geojson": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Alert Geometry
+         * @description The flagged area (plume polygon, or the zone when no plume was drawn).
+         */
+        get: operations["get_alert_geometry_api_v1_alerts__alert_id__geometry_geojson_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/alerts/{alert_id}/brief.pdf": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Brief
+         * @description The one-page investigation brief. Generated on first request if the
+         *     worker has not produced it yet; ``force=true`` re-renders.
+         */
+        get: operations["get_brief_api_v1_alerts__alert_id__brief_pdf_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/alerts/{alert_id}/status": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        /**
+         * Update Status
+         * @description Field workflow: open -> investigating -> validated | dismissed (any order is allowed;
+         *     the change is audited with who and why). Requires ``X-API-Key``; the key's actor
+         *     label is recorded as ``by``.
+         */
+        patch: operations["update_status_api_v1_alerts__alert_id__status_patch"];
+        trace?: never;
+    };
+    "/api/v1/alerts/{alert_id}/webhook-preview": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Webhook Preview
+         * @description Exactly what a webhook recipient receives (dry run; nothing is sent).
+         */
+        get: operations["webhook_preview_api_v1_alerts__alert_id__webhook_preview_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/validations": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List Validations
+         * @description Submitted validations, newest first, with their verdict.
+         */
+        get: operations["list_validations_api_v1_validations_get"];
+        put?: never;
+        /**
+         * Create Validation
+         * @description Submit a field or lab result against an alert. The verdict is computed
+         *     immediately (matched / not_matched / inconclusive), the alert's status is
+         *     updated, and a field-confirmed normal reading is fed back into the
+         *     seasonal baseline. Requires ``X-API-Key``; ``submitted_by`` is the key's actor.
+         */
+        post: operations["create_validation_api_v1_validations_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/validations/summary": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Validation Summary
+         * @description Precision to date, overall and by indicator / severity band.
+         */
+        get: operations["validation_summary_api_v1_validations_summary_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/validations/{validation_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get Validation */
+        get: operations["get_validation_api_v1_validations__validation_id__get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/validations/{validation_id}/photo": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get Photo */
+        get: operations["get_photo_api_v1_validations__validation_id__photo_get"];
+        put?: never;
+        /**
+         * Read Bounded
+         * @description Read the upload in chunks and stop as soon as it exceeds the limit, so an
+         *     oversized body is never fully buffered in memory.
+         */
+        post: operations["_read_bounded_api_v1_validations__validation_id__photo_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/jobs/ingest": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Create Ingest Job
+         * @description Enqueue ingestion for a water body and date range. Each ingested scene
+         *     chains mask -> indicators -> anomalies -> scoring -> alerts on its own;
+         *     poll ``GET /jobs/{id}`` for the live readout. Requires ``X-API-Key``.
+         *
+         *     The window is capped at ``job_max_span_days`` and a job that is already
+         *     queued or running for the same body and window is returned instead of
+         *     being enqueued twice.
+         */
+        post: operations["create_ingest_job_api_v1_jobs_ingest_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/jobs": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List Jobs */
+        get: operations["list_jobs_api_v1_jobs_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/jobs/{job_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Job
+         * @description State, progress percent and the stage currently in flight.
+         */
+        get: operations["get_job_api_v1_jobs__job_id__get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/jobs/{job_id}/report.pdf": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Job Report Pdf
+         * @description The analysis report for a pipeline run: a summary page (every day in the
+         *     window, trends, alerts) then one page per observed day with that day's
+         *     satellite image, detected water, turbidity and chlorophyll rasters and the
+         *     per-zone data. Rendered live while the job runs; stored once it is done
+         *     (``refresh=true`` re-renders).
+         */
+        get: operations["job_report_pdf_api_v1_jobs__job_id__report_pdf_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/jobs/{job_id}/report.csv": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Job Report Csv
+         * @description The same run as data: one row per (day, zone) with scene, coverage, water
+         *     extent, rainfall, every indicator mean, baseline z-scores, anomaly and
+         *     priority fields, and the alert id when one was raised.
+         */
+        get: operations["job_report_csv_api_v1_jobs__job_id__report_csv_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/imagery/status": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Imagery Status
+         * @description Whether Earth Engine is switched on, configured and reachable, plus the
+         *     visualisations ``/imagery/live`` accepts.
+         */
+        get: operations["imagery_status_api_v1_imagery_status_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/imagery/live": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Live Imagery
+         * @description Styled XYZ tile template for the most recent Sentinel-2 image over ``bbox``.
+         *
+         *     ``mode=latest`` mosaics every tile of the newest pass day (unmasked, so
+         *     clouds are visible as clouds); ``composite=true`` returns the cloud-masked
+         *     median of all passes in the window. Index layers are masked to water
+         *     (MNDWI > 0) so the colour ramp only ever paints the lake.
+         */
+        get: operations["live_imagery_api_v1_imagery_live_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/methodology": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Methodology
+         * @description The end-to-end method, with the scientific basis and formula of each indicator.
+         */
+        get: operations["methodology_api_v1_methodology_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+}
+export type webhooks = Record<string, never>;
+export interface components {
+    schemas: {
+        /** AlertContext */
+        AlertContext: {
+            /** Rainfall 72H Mm */
+            rainfall_72h_mm: number | null;
+            /** Cloud Cover Pct */
+            cloud_cover_pct: number | null;
+            /** Natural Cause Likely */
+            natural_cause_likely: boolean;
+            /** Rainfall Percentile */
+            rainfall_percentile?: number | null;
+            /** Gate Reason */
+            gate_reason?: string | null;
+            /** Baseline Status */
+            baseline_status?: string | null;
+            /** Votes */
+            votes?: number | null;
+        };
+        /** AlertList */
+        AlertList: {
+            /** Items */
+            items: components["schemas"]["AlertListItem"][];
+            /** Total */
+            total: number;
+            /** Disclaimer */
+            disclaimer: string;
+        };
+        /**
+         * AlertListItem
+         * @description GET /api/v1/alerts - one row of the priority-descending list.
+         */
+        AlertListItem: {
+            /** Alert Id */
+            alert_id: string;
+            water_body: components["schemas"]["WaterBodyRef"];
+            zone: components["schemas"]["ZoneRef"];
+            /**
+             * Observed On
+             * Format: date
+             */
+            observed_on: string;
+            /** Primary Indicator */
+            primary_indicator: string;
+            /**
+             * Severity
+             * @enum {string}
+             */
+            severity: "low" | "medium" | "high";
+            /** Confidence */
+            confidence: number;
+            /** Priority Score */
+            priority_score: number;
+            /**
+             * Status
+             * @enum {string}
+             */
+            status: "open" | "investigating" | "validated" | "dismissed";
+            /** Natural Cause Likely */
+            natural_cause_likely: boolean;
+            /** Affected Area Km2 */
+            affected_area_km2: number | null;
+            /** Summary */
+            summary: string;
+            /** N Observations */
+            n_observations: number;
+            /** Disclaimer */
+            disclaimer: string;
+        };
+        /**
+         * AlertOut
+         * @description GET /api/v1/alerts/{id} - the full alert.
+         */
+        AlertOut: {
+            /** Alert Id */
+            alert_id: string;
+            water_body: components["schemas"]["WaterBodyRef"];
+            zone: components["schemas"]["ZoneRef"];
+            /**
+             * Observed On
+             * Format: date
+             */
+            observed_on: string;
+            /** Affected Area Km2 */
+            affected_area_km2: number | null;
+            /** Primary Indicator */
+            primary_indicator: string;
+            /**
+             * Severity
+             * @enum {string}
+             */
+            severity: "low" | "medium" | "high";
+            /** Confidence */
+            confidence: number;
+            /** Priority Score */
+            priority_score: number;
+            /**
+             * Status
+             * @enum {string}
+             */
+            status: "open" | "investigating" | "validated" | "dismissed";
+            /** Indicators */
+            indicators: components["schemas"]["IndicatorReading"][];
+            explanation: components["schemas"]["Explanation"];
+            context: components["schemas"]["AlertContext"];
+            evidence: components["schemas"]["Evidence"];
+            /** Disclaimer */
+            disclaimer: string;
+            /**
+             * First Observed On
+             * Format: date
+             */
+            first_observed_on: string;
+            /** N Observations */
+            n_observations: number;
+            /** Peak Priority Score */
+            peak_priority_score: number;
+            /**
+             * Peak Severity
+             * @enum {string}
+             */
+            peak_severity: "low" | "medium" | "high";
+            /** Model Version */
+            model_version: string;
+            /** Timeline */
+            timeline?: components["schemas"]["TimelineEntry"][];
+            /**
+             * Updated At
+             * Format: date-time
+             */
+            updated_at: string;
+        };
+        /** AlertStatusUpdate */
+        AlertStatusUpdate: {
+            /**
+             * Status
+             * @enum {string}
+             */
+            status: "open" | "investigating" | "validated" | "dismissed";
+            /** Note */
+            note?: string | null;
+            /** By */
+            by?: string | null;
+        };
+        /** Body__read_bounded_api_v1_validations__validation_id__photo_post */
+        Body__read_bounded_api_v1_validations__validation_id__photo_post: {
+            /** File */
+            file: string;
+        };
+        /** ContributionOut */
+        ContributionOut: {
+            /** Factor */
+            factor: string;
+            /** Value */
+            value: number;
+            /** Key */
+            key?: string | null;
+            /** Raw */
+            raw?: number | null;
+            /** Parts */
+            parts?: {
+                [key: string]: number;
+            };
+        };
+        /** Evidence */
+        Evidence: {
+            /** Baseline Composite Url */
+            baseline_composite_url: string | null;
+            /** Current Observation Url */
+            current_observation_url: string | null;
+            /** Anomaly Mask Url */
+            anomaly_mask_url: string | null;
+            /** Current Scene Id */
+            current_scene_id?: string | null;
+            /** Reference Scene Id */
+            reference_scene_id?: string | null;
+            /** Reference Observed On */
+            reference_observed_on?: string | null;
+            /** Brief Url */
+            brief_url?: string | null;
+        };
+        /** Explanation */
+        Explanation: {
+            /** Summary */
+            summary: string;
+            /** Contributions */
+            contributions: components["schemas"]["ContributionOut"][];
+        };
+        /** Feature */
+        Feature: {
+            /**
+             * Type
+             * @default Feature
+             * @constant
+             */
+            type: "Feature";
+            /** Id */
+            id: string;
+            /** Geometry */
+            geometry: {
+                [key: string]: unknown;
+            };
+            /** Properties */
+            properties: {
+                [key: string]: unknown;
+            };
+        };
+        /** FeatureCollection */
+        FeatureCollection: {
+            /**
+             * Type
+             * @default FeatureCollection
+             * @constant
+             */
+            type: "FeatureCollection";
+            /** Features */
+            features: components["schemas"]["Feature"][];
+        };
+        /** GeoJSONFeature */
+        GeoJSONFeature: {
+            /**
+             * Type
+             * @default Feature
+             * @constant
+             */
+            type: "Feature";
+            /** Id */
+            id: string;
+            /** Geometry */
+            geometry: {
+                [key: string]: unknown;
+            };
+            /** Properties */
+            properties: {
+                [key: string]: unknown;
+            };
+        };
+        /** GeoJSONFeatureCollection */
+        GeoJSONFeatureCollection: {
+            /**
+             * Type
+             * @default FeatureCollection
+             * @constant
+             */
+            type: "FeatureCollection";
+            /** Features */
+            features: components["schemas"]["GeoJSONFeature"][];
+            /** Disclaimer */
+            disclaimer: string;
+        };
+        /** HTTPValidationError */
+        HTTPValidationError: {
+            /** Detail */
+            detail?: components["schemas"]["ValidationError"][];
+        };
+        /**
+         * HealthResponse
+         * @example {
+         *       "app": "JalNetra",
+         *       "env": "dev",
+         *       "services": {
+         *         "minio": {
+         *           "latency_ms": 5.4,
+         *           "status": "ok"
+         *         },
+         *         "postgres": {
+         *           "latency_ms": 3.1,
+         *           "status": "ok"
+         *         },
+         *         "redis": {
+         *           "latency_ms": 0.8,
+         *           "status": "ok"
+         *         }
+         *       },
+         *       "status": "ok",
+         *       "version": "0.1.0"
+         *     }
+         */
+        HealthResponse: {
+            /**
+             * Status
+             * @enum {string}
+             */
+            status: "ok" | "degraded";
+            /** App */
+            app: string;
+            /** Version */
+            version: string;
+            /** Env */
+            env: string;
+            /** Services */
+            services: {
+                [key: string]: components["schemas"]["ServiceStatus"];
+            };
+        };
+        /** ImageryStatus */
+        ImageryStatus: {
+            /** Enabled */
+            enabled: boolean;
+            /** Configured */
+            configured: boolean;
+            /** Ok */
+            ok: boolean;
+            /** Project */
+            project: string | null;
+            /** Collection */
+            collection: string;
+            /** Error */
+            error?: string | null;
+            /** Visualisations */
+            visualisations: components["schemas"]["LiveVisOut"][];
+        };
+        /** IndicatorDoc */
+        IndicatorDoc: {
+            /** Key */
+            key: string;
+            /** Display Name */
+            display_name: string;
+            /** Formula */
+            formula: string;
+            /** Required Bands */
+            required_bands: string[];
+            /** Valid Range */
+            valid_range: number[];
+            /** Units */
+            units: string;
+            /** Water Only */
+            water_only: boolean;
+            /** Scientific Basis */
+            scientific_basis: string;
+            /**
+             * Observes
+             * @description Which problem-statement indicator this covers
+             */
+            observes: string;
+        };
+        /** IndicatorReading */
+        IndicatorReading: {
+            /** Key */
+            key: string;
+            /** Value */
+            value: number | null;
+            /** Baseline Mean */
+            baseline_mean: number | null;
+            /** Baseline Std */
+            baseline_std: number | null;
+            /** Z Score */
+            z_score: number | null;
+            /** Deviation Pct */
+            deviation_pct: number | null;
+            /** Baseline Status */
+            baseline_status?: string | null;
+        };
+        /**
+         * IndicatorsResponse
+         * @example {
+         *       "cached": false,
+         *       "disclaimer": "Satellite-observed anomaly. Ground and laboratory testing recommended for validation.",
+         *       "observed_on": "2026-09-17",
+         *       "requested_date": "2026-09-17",
+         *       "scene_id": "S2C_43QCA_20260917_0_L2A",
+         *       "water_body_id": "wb_khadakwasla",
+         *       "zones": [
+         *         {
+         *           "indicators": [
+         *             {
+         *               "baseline_mean": 0.128,
+         *               "baseline_p10": 0.1,
+         *               "baseline_p90": 0.16,
+         *               "baseline_status": "usable",
+         *               "baseline_std": 0.021,
+         *               "deviation_pct": 143.8,
+         *               "display_name": "Turbidity (NDTI)",
+         *               "key": "ndti_turbidity",
+         *               "p90": 0.41,
+         *               "scientific_basis": "Red-to-green ratio; rises with sediment.",
+         *               "valid_pixel_pct": 91.9,
+         *               "value": 0.312,
+         *               "water_fraction_pct": 97,
+         *               "z_score": 8.76
+         *             }
+         *           ],
+         *           "rejected": [],
+         *           "zone_id": "wb_khadakwasla_z3",
+         *           "zone_name": "Eastern zone"
+         *         }
+         *       ]
+         *     }
+         */
+        IndicatorsResponse: {
+            /** Water Body Id */
+            water_body_id: string;
+            /**
+             * Requested Date
+             * Format: date
+             */
+            requested_date: string;
+            /** Scene Id */
+            scene_id: string | null;
+            /** Observed On */
+            observed_on: string | null;
+            /** Zones */
+            zones: components["schemas"]["ZoneIndicators"][];
+            /** Cached */
+            cached: boolean;
+            /** Disclaimer */
+            disclaimer: string;
+        };
+        /**
+         * IngestJobRequest
+         * @example {
+         *       "date_from": "2026-09-01",
+         *       "date_to": "2026-09-21",
+         *       "water_body_id": "wb_khadakwasla"
+         *     }
+         */
+        IngestJobRequest: {
+            /** Water Body Id */
+            water_body_id: string;
+            /**
+             * Date From
+             * Format: date
+             */
+            date_from: string;
+            /**
+             * Date To
+             * @description defaults to date_from
+             */
+            date_to?: string | null;
+            /** Requested By */
+            requested_by?: string | null;
+        };
+        /** JobList */
+        JobList: {
+            /** Items */
+            items: components["schemas"]["JobOut"][];
+            /** Next Cursor */
+            next_cursor: string | null;
+        };
+        /**
+         * JobOut
+         * @example {
+         *       "alerts_created": 1,
+         *       "celery_state": "SUCCESS",
+         *       "created_at": "2026-09-21T10:00:00Z",
+         *       "current_stage": "indicators",
+         *       "date_from": "2026-09-01",
+         *       "date_to": "2026-09-21",
+         *       "job_id": "job_3f9c2b7e4a5d4c1e9b8a7f6e5d4c3b2a",
+         *       "kind": "ingest",
+         *       "progress_pct": 58.3,
+         *       "scenes_found": 5,
+         *       "scenes_usable": 4,
+         *       "stages": [
+         *         {
+         *           "done": 4,
+         *           "pct": 100,
+         *           "stage": "ingestion",
+         *           "total": 4
+         *         },
+         *         {
+         *           "done": 4,
+         *           "pct": 100,
+         *           "stage": "mask",
+         *           "total": 4
+         *         },
+         *         {
+         *           "done": 2,
+         *           "pct": 50,
+         *           "stage": "indicators",
+         *           "total": 4
+         *         },
+         *         {
+         *           "done": 1,
+         *           "pct": 25,
+         *           "stage": "anomalies",
+         *           "total": 4
+         *         },
+         *         {
+         *           "done": 1,
+         *           "pct": 25,
+         *           "stage": "scoring",
+         *           "total": 4
+         *         },
+         *         {
+         *           "done": 1,
+         *           "pct": 25,
+         *           "stage": "alerts",
+         *           "total": 4
+         *         }
+         *       ],
+         *       "status": "running",
+         *       "updated_at": "2026-09-21T10:03:12Z",
+         *       "water_body_id": "wb_khadakwasla"
+         *     }
+         */
+        JobOut: {
+            /** Job Id */
+            job_id: string;
+            /** Kind */
+            kind: string;
+            /** Water Body Id */
+            water_body_id: string;
+            /**
+             * Date From
+             * Format: date
+             */
+            date_from: string;
+            /**
+             * Date To
+             * Format: date
+             */
+            date_to: string;
+            /**
+             * Status
+             * @enum {string}
+             */
+            status: "queued" | "running" | "done" | "failed";
+            /** Progress Pct */
+            progress_pct: number;
+            /**
+             * Current Stage
+             * @description first stage with pending work; null when done
+             */
+            current_stage: string | null;
+            /** Stages */
+            stages: components["schemas"]["StageProgress"][];
+            /** Scenes Found */
+            scenes_found: number;
+            /** Scenes Usable */
+            scenes_usable: number;
+            /** Alerts Created */
+            alerts_created: number;
+            /** Celery State */
+            celery_state: string | null;
+            /** Error */
+            error: string | null;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+            /**
+             * Updated At
+             * Format: date-time
+             */
+            updated_at: string;
+            /** Finished At */
+            finished_at: string | null;
+        };
+        /** LabResults */
+        LabResults: {
+            /** Turbidity Ntu */
+            turbidity_ntu?: number | null;
+            /** Chlorophyll Ug L */
+            chlorophyll_ug_l?: number | null;
+            /** Tss Mg L */
+            tss_mg_l?: number | null;
+            /** Do Mg L */
+            do_mg_l?: number | null;
+            /** Ph */
+            ph?: number | null;
+            /** Temperature C */
+            temperature_c?: number | null;
+            /** Conductivity Us Cm */
+            conductivity_us_cm?: number | null;
+        };
+        /** LatestObservation */
+        LatestObservation: {
+            /** Scene Id */
+            scene_id: string;
+            /**
+             * Observed On
+             * Format: date
+             */
+            observed_on: string;
+            /** Cloud Pct */
+            cloud_pct: number;
+            /** Usable */
+            usable: boolean;
+            /**
+             * Stage
+             * @description deepest stage reached: ingested|masked|indicators|anomalies|scored|alerted
+             */
+            stage: string;
+        };
+        /**
+         * LiveImageryOut
+         * @example {
+         *       "attribution": "Contains modified Copernicus Sentinel data, processed in Google Earth Engine",
+         *       "cached": false,
+         *       "cloud_pct": 8.4,
+         *       "collection": "COPERNICUS/S2_SR_HARMONIZED",
+         *       "map_id": "projects/jalnetra/maps/abc",
+         *       "mode": "latest",
+         *       "scene_count": 2,
+         *       "scene_date": "2026-09-19",
+         *       "tile_url": "https://earthengine.googleapis.com/v1/projects/jalnetra/maps/abc/tiles/{z}/{x}/{y}",
+         *       "vis": "truecolor",
+         *       "window_from": "2026-08-22",
+         *       "window_to": "2026-09-21"
+         *     }
+         */
+        LiveImageryOut: {
+            /** Vis */
+            vis: string;
+            /**
+             * Mode
+             * @enum {string}
+             */
+            mode: "latest" | "composite";
+            /**
+             * Tile Url
+             * @description XYZ template with {z}/{x}/{y}, served by Google
+             */
+            tile_url: string;
+            /** Map Id */
+            map_id: string;
+            /**
+             * Scene Date
+             * Format: date
+             * @description Latest Sentinel-2 pass rendered
+             */
+            scene_date: string;
+            /**
+             * Scene Count
+             * @description Passes contributing to the image
+             */
+            scene_count: number;
+            /**
+             * Cloud Pct
+             * @description Mean tile-level cloud cover of those passes
+             */
+            cloud_pct?: number | null;
+            /**
+             * Window From
+             * Format: date
+             */
+            window_from: string;
+            /**
+             * Window To
+             * Format: date
+             */
+            window_to: string;
+            /** Collection */
+            collection: string;
+            /** Attribution */
+            attribution: string;
+            /**
+             * Cached
+             * @default false
+             */
+            cached: boolean;
+        };
+        /** LiveVisOut */
+        LiveVisOut: {
+            /** Key */
+            key: string;
+            /** Label */
+            label: string;
+            /**
+             * Kind
+             * @enum {string}
+             */
+            kind: "rgb" | "index";
+            /** Water Only */
+            water_only: boolean;
+            /** Description */
+            description: string;
+            /** Palette */
+            palette?: string[];
+            /** Range */
+            range?: [
+                number,
+                number
+            ] | null;
+        };
+        /** Methodology */
+        Methodology: {
+            /** Workflow */
+            workflow: string[];
+            /** Product Boundary */
+            product_boundary: string;
+            /** Disclaimer */
+            disclaimer: string;
+            data: components["schemas"]["Step"];
+            water_detection: components["schemas"]["Step"];
+            /** Indicators */
+            indicators: components["schemas"]["IndicatorDoc"][];
+            temporal_monitoring: components["schemas"]["Step"];
+            anomaly_detection: components["schemas"]["Step"];
+            prioritisation: components["schemas"]["Step"];
+            alerts: components["schemas"]["Step"];
+            explainability: components["schemas"]["Step"];
+            validation_loop: components["schemas"]["Step"];
+            /** Limitations */
+            limitations: string[];
+        };
+        /**
+         * ObservationItem
+         * @example {
+         *       "cloud_pct": 8.1,
+         *       "observed_on": "2026-09-17",
+         *       "platform": "sentinel-2c",
+         *       "scene_id": "S2C_43QCA_20260917_0_L2A",
+         *       "sensed_at": "2026-09-17T05:31:12Z",
+         *       "source": "earth-search",
+         *       "stage": "alerted",
+         *       "usable": true,
+         *       "valid_pixel_pct": 91.9,
+         *       "water_extent_km2": 17.2
+         *     }
+         */
+        ObservationItem: {
+            /** Scene Id */
+            scene_id: string;
+            /**
+             * Observed On
+             * Format: date
+             */
+            observed_on: string;
+            /**
+             * Sensed At
+             * Format: date-time
+             */
+            sensed_at: string;
+            /** Platform */
+            platform: string | null;
+            /**
+             * Cloud Pct
+             * @description tile-level cloud cover from STAC
+             */
+            cloud_pct: number;
+            /**
+             * Usable
+             * @description mask verdict for this body (falls back to the tile flag)
+             */
+            usable: boolean;
+            /**
+             * Valid Pixel Pct
+             * @description cloud-free share over the body
+             */
+            valid_pixel_pct: number | null;
+            /** Water Extent Km2 */
+            water_extent_km2: number | null;
+            /** Stage */
+            stage: string;
+            /** Source */
+            source: string;
+        };
+        /** ObservationList */
+        ObservationList: {
+            /** Water Body Id */
+            water_body_id: string;
+            /** Items */
+            items: components["schemas"]["ObservationItem"][];
+            /** Total */
+            total: number;
+            /** Next Cursor */
+            next_cursor: string | null;
+        };
+        /** SeriesPoint */
+        SeriesPoint: {
+            /**
+             * Observed At
+             * Format: date-time
+             */
+            observed_at: string;
+            /** Scene Id */
+            scene_id: string;
+            /**
+             * Value
+             * @description zone mean
+             */
+            value: number | null;
+            /** P90 */
+            p90: number | null;
+            /** Valid Pixel Pct */
+            valid_pixel_pct: number | null;
+            /** Baseline Mean */
+            baseline_mean: number | null;
+            /** Baseline P10 */
+            baseline_p10: number | null;
+            /** Baseline P90 */
+            baseline_p90: number | null;
+            /** Baseline Status */
+            baseline_status: string | null;
+            /** Z Score */
+            z_score: number | null;
+        };
+        /**
+         * SeriesResponse
+         * @example {
+         *       "baseline_status": "usable",
+         *       "baseline_usable_windows": 366,
+         *       "cached": false,
+         *       "date_from": "2026-06-01",
+         *       "date_to": "2026-09-17",
+         *       "disclaimer": "Satellite-observed anomaly. Ground and laboratory testing recommended for validation.",
+         *       "display_name": "Turbidity (NDTI)",
+         *       "indicator": "ndti_turbidity",
+         *       "points": [
+         *         {
+         *           "baseline_mean": 0.128,
+         *           "baseline_p10": 0.1,
+         *           "baseline_p90": 0.16,
+         *           "baseline_status": "usable",
+         *           "observed_at": "2026-09-17T05:31:12Z",
+         *           "p90": 0.41,
+         *           "scene_id": "S2C_43QCA_20260917_0_L2A",
+         *           "valid_pixel_pct": 91.9,
+         *           "value": 0.312,
+         *           "z_score": 8.76
+         *         }
+         *       ],
+         *       "water_body_id": "wb_khadakwasla",
+         *       "weekly": [],
+         *       "zone_id": "wb_khadakwasla_z3"
+         *     }
+         */
+        SeriesResponse: {
+            /** Water Body Id */
+            water_body_id: string;
+            /** Zone Id */
+            zone_id: string;
+            /** Indicator */
+            indicator: string;
+            /** Display Name */
+            display_name: string;
+            /**
+             * Date From
+             * Format: date
+             */
+            date_from: string;
+            /**
+             * Date To
+             * Format: date
+             */
+            date_to: string;
+            /** Points */
+            points: components["schemas"]["SeriesPoint"][];
+            /** Baseline Status */
+            baseline_status: string;
+            /** Baseline Usable Windows */
+            baseline_usable_windows: number;
+            /**
+             * Weekly
+             * @description continuous-aggregate weekly means
+             */
+            weekly?: {
+                [key: string]: unknown;
+            }[];
+            /** Cached */
+            cached: boolean;
+            /** Disclaimer */
+            disclaimer: string;
+        };
+        /** ServiceStatus */
+        ServiceStatus: {
+            /**
+             * Status
+             * @enum {string}
+             */
+            status: "ok" | "error";
+            /** Latency Ms */
+            latency_ms: number;
+            /** Error */
+            error?: string | null;
+        };
+        /** StageProgress */
+        StageProgress: {
+            /** Stage */
+            stage: string;
+            /** Done */
+            done: number;
+            /** Total */
+            total: number;
+            /** Pct */
+            pct: number;
+        };
+        /** Step */
+        Step: {
+            /** Key */
+            key: string;
+            /** Title */
+            title: string;
+            /** Summary */
+            summary: string;
+            /** Details */
+            details: string[];
+            /** Parameters */
+            parameters?: {
+                [key: string]: unknown;
+            };
+        };
+        /** TimelineEntry */
+        TimelineEntry: {
+            /**
+             * Observed At
+             * Format: date-time
+             */
+            observed_at: string;
+            /** Scene Id */
+            scene_id: string;
+            /** Candidate Id */
+            candidate_id: number | null;
+            /** Priority Score */
+            priority_score: number | null;
+            /** Severity */
+            severity: ("low" | "medium" | "high") | null;
+            /** Confidence */
+            confidence: number | null;
+            /** Alertable */
+            alertable: boolean;
+        };
+        /** ValidationError */
+        ValidationError: {
+            /** Location */
+            loc: (string | number)[];
+            /** Message */
+            msg: string;
+            /** Error Type */
+            type: string;
+            /** Input */
+            input?: unknown;
+            /** Context */
+            ctx?: Record<string, never>;
+        };
+        /**
+         * ValidationIn
+         * @example {
+         *       "alert_id": "alr_2026_0917_khadakwasla_z3",
+         *       "lab_results": {
+         *         "ph": 7.6,
+         *         "tss_mg_l": 62,
+         *         "turbidity_ntu": 48
+         *       },
+         *       "observed_condition": "Brown plume near the eastern inlet, no odour.",
+         *       "sampled_on": "2026-09-19",
+         *       "submitted_by": "RO Pune field team"
+         *     }
+         */
+        ValidationIn: {
+            /** Alert Id */
+            alert_id: string;
+            /**
+             * Sampled On
+             * Format: date
+             */
+            sampled_on: string;
+            lab_results?: components["schemas"]["LabResults"];
+            /** Observed Condition */
+            observed_condition?: string | null;
+            /** Notes */
+            notes?: string | null;
+            /** Submitted By */
+            submitted_by?: string | null;
+        };
+        /** ValidationList */
+        ValidationList: {
+            /** Items */
+            items: components["schemas"]["ValidationOut"][];
+            /** Total */
+            total: number;
+            /** Next Cursor */
+            next_cursor: string | null;
+        };
+        /**
+         * ValidationOut
+         * @example {
+         *       "alert_id": "alr_2026_0917_khadakwasla_z3",
+         *       "alert_indicator": "ndti_turbidity",
+         *       "alert_observed_on": "2026-09-17",
+         *       "alert_priority_score": 72,
+         *       "alert_severity": "high",
+         *       "created_at": "2026-09-19T11:20:00Z",
+         *       "id": 12,
+         *       "lab_results": {
+         *         "ph": 7.6,
+         *         "tss_mg_l": 62,
+         *         "turbidity_ntu": 48
+         *       },
+         *       "observed_condition": "Brown plume near the eastern inlet, no odour.",
+         *       "photo_url": "/api/v1/validations/12/photo",
+         *       "sampled_on": "2026-09-19",
+         *       "submitted_by": "RO Pune field team",
+         *       "verdict": "matched",
+         *       "verdict_reason": "turbidity 48 NTU is at or above the threshold of 10 NTU"
+         *     }
+         */
+        ValidationOut: {
+            /** Id */
+            id: number;
+            /** Alert Id */
+            alert_id: string;
+            /**
+             * Sampled On
+             * Format: date
+             */
+            sampled_on: string;
+            /** Lab Results */
+            lab_results: {
+                [key: string]: unknown;
+            };
+            /** Observed Condition */
+            observed_condition: string | null;
+            /** Notes */
+            notes: string | null;
+            /** Submitted By */
+            submitted_by: string | null;
+            /** Verdict */
+            verdict: ("matched" | "not_matched" | "inconclusive") | null;
+            /** Verdict Reason */
+            verdict_reason: string | null;
+            /** Alert Severity */
+            alert_severity?: string | null;
+            /** Alert Indicator */
+            alert_indicator?: string | null;
+            /** Alert Priority Score */
+            alert_priority_score?: number | null;
+            /** Alert Observed On */
+            alert_observed_on?: string | null;
+            /** Photo Url */
+            photo_url?: string | null;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+        };
+        /**
+         * ValidationSummary
+         * @example {
+         *       "as_of": "2026-09-21T12:00:00Z",
+         *       "by_indicator": {
+         *         "ndti_turbidity": {
+         *           "inconclusive": 1,
+         *           "matched": 5,
+         *           "n": 7,
+         *           "not_matched": 1,
+         *           "precision": 0.833
+         *         }
+         *       },
+         *       "by_severity": {
+         *         "high": {
+         *           "inconclusive": 0,
+         *           "matched": 4,
+         *           "n": 4,
+         *           "not_matched": 0,
+         *           "precision": 1
+         *         },
+         *         "medium": {
+         *           "inconclusive": 1,
+         *           "matched": 3,
+         *           "n": 6,
+         *           "not_matched": 2,
+         *           "precision": 0.6
+         *         }
+         *       },
+         *       "last_validation_at": "2026-09-19T11:20:00Z",
+         *       "note": "precision = matched / (matched + not_matched)",
+         *       "overall": {
+         *         "inconclusive": 1,
+         *         "matched": 7,
+         *         "n": 10,
+         *         "not_matched": 2,
+         *         "precision": 0.778
+         *       }
+         *     }
+         */
+        ValidationSummary: {
+            /**
+             * As Of
+             * Format: date-time
+             */
+            as_of: string;
+            /** Last Validation At */
+            last_validation_at: string | null;
+            overall: components["schemas"]["VerdictBucket"];
+            /** By Indicator */
+            by_indicator: {
+                [key: string]: components["schemas"]["VerdictBucket"];
+            };
+            /** By Severity */
+            by_severity: {
+                [key: string]: components["schemas"]["VerdictBucket"];
+            };
+            /** Note */
+            note: string;
+        };
+        /** VerdictBucket */
+        VerdictBucket: {
+            /** Matched */
+            matched: number;
+            /** Not Matched */
+            not_matched: number;
+            /** Inconclusive */
+            inconclusive: number;
+            /**
+             * N
+             * @default 0
+             */
+            n: number;
+            /**
+             * Precision
+             * @description matched / (matched + not_matched)
+             */
+            precision: number | null;
+        };
+        /**
+         * WaterBodyDetail
+         * @example {
+         *       "area_km2": 18.4,
+         *       "baseline_status": "usable",
+         *       "bbox": [
+         *         73.72,
+         *         18.4,
+         *         73.82,
+         *         18.47
+         *       ],
+         *       "centroid": [
+         *         73.7712,
+         *         18.4419
+         *       ],
+         *       "district": "Pune",
+         *       "id": "wb_khadakwasla",
+         *       "kind": "reservoir",
+         *       "latest_observation": {
+         *         "cloud_pct": 8.1,
+         *         "observed_on": "2026-09-17",
+         *         "scene_id": "S2C_43QCA_20260917_0_L2A",
+         *         "stage": "alerted",
+         *         "usable": true
+         *       },
+         *       "max_open_severity": "high",
+         *       "n_zones": 6,
+         *       "name": "Khadakwasla Reservoir",
+         *       "open_alerts": 1,
+         *       "status": "alert",
+         *       "tier": 1
+         *     }
+         */
+        WaterBodyDetail: {
+            /** Id */
+            id: string;
+            /** Name */
+            name: string;
+            /** District */
+            district: string;
+            /** Kind */
+            kind: string;
+            /** Tier */
+            tier: number;
+            /** Area Km2 */
+            area_km2: number;
+            /**
+             * Centroid
+             * @description [lon, lat]
+             */
+            centroid: number[];
+            /**
+             * Bbox
+             * @description [minlon, minlat, maxlon, maxlat]
+             */
+            bbox: number[];
+            /** N Zones */
+            n_zones: number;
+            latest_observation: components["schemas"]["LatestObservation"] | null;
+            /**
+             * Status
+             * @enum {string}
+             */
+            status: "normal" | "watch" | "alert" | "baseline_building" | "no_data";
+            /** Open Alerts */
+            open_alerts: number;
+            /** Max Open Severity */
+            max_open_severity: ("low" | "medium" | "high") | null;
+            /**
+             * Baseline Status
+             * @enum {string}
+             */
+            baseline_status: "usable" | "building" | "none";
+            /** Mgrs Tiles */
+            mgrs_tiles: string[];
+            /** Source */
+            source: string | null;
+            /**
+             * Boundary
+             * @description GeoJSON MultiPolygon, EPSG:4326
+             */
+            boundary: {
+                [key: string]: unknown;
+            };
+            zones: components["schemas"]["FeatureCollection"];
+            /** Disclaimer */
+            disclaimer: string;
+        };
+        /** WaterBodyList */
+        WaterBodyList: {
+            /** Items */
+            items: components["schemas"]["WaterBodyListItem"][];
+            /** Total */
+            total: number;
+            /** Next Cursor */
+            next_cursor: string | null;
+        };
+        /**
+         * WaterBodyListItem
+         * @example {
+         *       "area_km2": 18.4,
+         *       "baseline_status": "usable",
+         *       "bbox": [
+         *         73.72,
+         *         18.4,
+         *         73.82,
+         *         18.47
+         *       ],
+         *       "centroid": [
+         *         73.7712,
+         *         18.4419
+         *       ],
+         *       "district": "Pune",
+         *       "id": "wb_khadakwasla",
+         *       "kind": "reservoir",
+         *       "latest_observation": {
+         *         "cloud_pct": 8.1,
+         *         "observed_on": "2026-09-17",
+         *         "scene_id": "S2C_43QCA_20260917_0_L2A",
+         *         "stage": "alerted",
+         *         "usable": true
+         *       },
+         *       "max_open_severity": "high",
+         *       "n_zones": 6,
+         *       "name": "Khadakwasla Reservoir",
+         *       "open_alerts": 1,
+         *       "status": "alert",
+         *       "tier": 1
+         *     }
+         */
+        WaterBodyListItem: {
+            /** Id */
+            id: string;
+            /** Name */
+            name: string;
+            /** District */
+            district: string;
+            /** Kind */
+            kind: string;
+            /** Tier */
+            tier: number;
+            /** Area Km2 */
+            area_km2: number;
+            /**
+             * Centroid
+             * @description [lon, lat]
+             */
+            centroid: number[];
+            /**
+             * Bbox
+             * @description [minlon, minlat, maxlon, maxlat]
+             */
+            bbox: number[];
+            /** N Zones */
+            n_zones: number;
+            latest_observation: components["schemas"]["LatestObservation"] | null;
+            /**
+             * Status
+             * @enum {string}
+             */
+            status: "normal" | "watch" | "alert" | "baseline_building" | "no_data";
+            /** Open Alerts */
+            open_alerts: number;
+            /** Max Open Severity */
+            max_open_severity: ("low" | "medium" | "high") | null;
+            /**
+             * Baseline Status
+             * @enum {string}
+             */
+            baseline_status: "usable" | "building" | "none";
+        };
+        /** WaterBodyRef */
+        WaterBodyRef: {
+            /** Id */
+            id: string;
+            /** Name */
+            name: string;
+            /** District */
+            district: string;
+        };
+        /** ZoneIndicator */
+        ZoneIndicator: {
+            /** Key */
+            key: string;
+            /** Display Name */
+            display_name: string;
+            /** Value */
+            value: number | null;
+            /** P90 */
+            p90: number | null;
+            /** Baseline Mean */
+            baseline_mean: number | null;
+            /** Baseline Std */
+            baseline_std: number | null;
+            /** Baseline P10 */
+            baseline_p10: number | null;
+            /** Baseline P90 */
+            baseline_p90: number | null;
+            /** Baseline Status */
+            baseline_status: string;
+            /** Z Score */
+            z_score: number | null;
+            /** Deviation Pct */
+            deviation_pct: number | null;
+            /** Valid Pixel Pct */
+            valid_pixel_pct: number | null;
+            /** Water Fraction Pct */
+            water_fraction_pct: number | null;
+            /** Scientific Basis */
+            scientific_basis: string;
+        };
+        /** ZoneIndicators */
+        ZoneIndicators: {
+            /** Zone Id */
+            zone_id: string;
+            /** Zone Name */
+            zone_name: string;
+            /** Indicators */
+            indicators: components["schemas"]["ZoneIndicator"][];
+            /**
+             * Rejected
+             * @description zone-indicator records L6 refused, with reason
+             */
+            rejected?: {
+                [key: string]: unknown;
+            }[];
+        };
+        /** ZoneRef */
+        ZoneRef: {
+            /** Id */
+            id: string;
+            /** Name */
+            name: string;
+            /**
+             * Centroid
+             * @description [lon, lat]
+             */
+            centroid: number[];
+        };
+    };
+    responses: never;
+    parameters: never;
+    requestBodies: never;
+    headers: never;
+    pathItems: never;
+}
+export type $defs = Record<string, never>;
+export interface operations {
+    health_health_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HealthResponse"];
+                };
+            };
+            /** @description Service Unavailable */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HealthResponse"];
+                };
+            };
+        };
+    };
+    chip_tile_tiles_chip__chip___z___x___y__png_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description URL-encoded MinIO object key of a COG chip */
+                chip: string;
+                z: number;
+                x: number;
+                y: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    layer_tile_tiles__layer___water_body_id___on___z___x___y__png_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                layer: string;
+                water_body_id: string;
+                on: string;
+                z: number;
+                x: number;
+                y: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    tile_styles_tiles_styles_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: {
+                            [key: string]: unknown;
+                        };
+                    };
+                };
+            };
+        };
+    };
+    list_water_bodies_api_v1_water_bodies_get: {
+        parameters: {
+            query?: {
+                district?: string | null;
+                tier?: number | null;
+                limit?: number;
+                cursor?: string | null;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["WaterBodyList"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_water_body_api_v1_water_bodies__water_body_id__get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                water_body_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["WaterBodyDetail"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    list_observations_api_v1_water_bodies__water_body_id__observations_get: {
+        parameters: {
+            query?: {
+                from?: string | null;
+                to?: string | null;
+                limit?: number;
+                cursor?: string | null;
+            };
+            header?: never;
+            path: {
+                water_body_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ObservationList"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_indicators_api_v1_water_bodies__water_body_id__indicators_get: {
+        parameters: {
+            query?: {
+                /** @description latest scene on or before this date; default today */
+                date?: string | null;
+                zone?: string | null;
+            };
+            header?: never;
+            path: {
+                water_body_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["IndicatorsResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_series_api_v1_water_bodies__water_body_id__series_get: {
+        parameters: {
+            query?: {
+                /** @description one of ndti_turbidity, ndci_chlorophyll, fai_algal, sediment_proxy, mndwi_extent */
+                indicator?: string;
+                from?: string | null;
+                to?: string | null;
+                /** @description defaults to the body's first zone */
+                zone?: string | null;
+            };
+            header?: never;
+            path: {
+                water_body_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SeriesResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    list_alerts_api_v1_alerts_get: {
+        parameters: {
+            query?: {
+                status?: "open" | "investigating" | "validated" | "dismissed" | "active" | "all";
+                /** @description minimum severity */
+                severity?: ("low" | "medium" | "high") | null;
+                min_priority?: number;
+                water_body_id?: string | null;
+                district?: string | null;
+                limit?: number;
+                offset?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AlertList"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    alerts_geojson_api_v1_alerts_geojson_get: {
+        parameters: {
+            query?: {
+                status?: "open" | "investigating" | "validated" | "dismissed" | "active" | "all";
+                severity?: ("low" | "medium" | "high") | null;
+                min_priority?: number;
+                water_body_id?: string | null;
+                district?: string | null;
+                limit?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["GeoJSONFeatureCollection"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_alert_api_v1_alerts__alert_id__get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                alert_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AlertOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_alert_geometry_api_v1_alerts__alert_id__geometry_geojson_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                alert_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_brief_api_v1_alerts__alert_id__brief_pdf_get: {
+        parameters: {
+            query?: {
+                force?: boolean;
+            };
+            header?: never;
+            path: {
+                alert_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/pdf": unknown;
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    update_status_api_v1_alerts__alert_id__status_patch: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                alert_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["AlertStatusUpdate"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AlertOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    webhook_preview_api_v1_alerts__alert_id__webhook_preview_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                alert_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    list_validations_api_v1_validations_get: {
+        parameters: {
+            query?: {
+                alert_id?: string | null;
+                verdict?: string | null;
+                limit?: number;
+                cursor?: string | null;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ValidationList"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    create_validation_api_v1_validations_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ValidationIn"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ValidationOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    validation_summary_api_v1_validations_summary_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ValidationSummary"];
+                };
+            };
+        };
+    };
+    get_validation_api_v1_validations__validation_id__get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                validation_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ValidationOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_photo_api_v1_validations__validation_id__photo_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                validation_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    _read_bounded_api_v1_validations__validation_id__photo_post: {
+        parameters: {
+            query: {
+                max_bytes: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "multipart/form-data": components["schemas"]["Body__read_bounded_api_v1_validations__validation_id__photo_post"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ValidationOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    create_ingest_job_api_v1_jobs_ingest_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["IngestJobRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            202: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["JobOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    list_jobs_api_v1_jobs_get: {
+        parameters: {
+            query?: {
+                water_body_id?: string | null;
+                limit?: number;
+                cursor?: string | null;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["JobList"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_job_api_v1_jobs__job_id__get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                job_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["JobOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    job_report_pdf_api_v1_jobs__job_id__report_pdf_get: {
+        parameters: {
+            query?: {
+                refresh?: boolean;
+                download?: boolean;
+            };
+            header?: never;
+            path: {
+                job_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/pdf": unknown;
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    job_report_csv_api_v1_jobs__job_id__report_csv_get: {
+        parameters: {
+            query?: {
+                refresh?: boolean;
+            };
+            header?: never;
+            path: {
+                job_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "text/csv": unknown;
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    imagery_status_api_v1_imagery_status_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ImageryStatus"];
+                };
+            };
+        };
+    };
+    live_imagery_api_v1_imagery_live_get: {
+        parameters: {
+            query: {
+                /** @description minx,miny,maxx,maxy in WGS84 (lon/lat) */
+                bbox: string;
+                /** @description truecolor | falsecolor | ndti | ndci | mndwi */
+                vis?: string;
+                /** @description End of the window; default today */
+                date?: string | null;
+                /** @description Lookback window in days */
+                days?: number;
+                max_cloud?: number;
+                /** @description Cloud-masked median of the window instead of the latest pass */
+                composite?: boolean;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["LiveImageryOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    methodology_api_v1_methodology_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Methodology"];
+                };
+            };
+        };
+    };
+}

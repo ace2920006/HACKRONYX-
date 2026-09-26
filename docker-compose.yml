@@ -1,0 +1,187 @@
+name: jalnetra
+
+x-backend-env: &backend-env
+  APP_ENV: ${APP_ENV:-dev}
+  LOG_LEVEL: ${LOG_LEVEL:-INFO}
+  DATABASE_URL: postgresql+asyncpg://${POSTGRES_USER:-jalnetra}:${POSTGRES_PASSWORD:-jalnetra}@postgres:5432/${POSTGRES_DB:-jalnetra}
+  REDIS_URL: redis://redis:6379/0
+  CELERY_BROKER_URL: redis://redis:6379/1
+  CELERY_RESULT_BACKEND: redis://redis:6379/2
+  MINIO_ENDPOINT: minio:9000
+  MINIO_ACCESS_KEY: ${MINIO_ROOT_USER:-jalnetra}
+  MINIO_SECRET_KEY: ${MINIO_ROOT_PASSWORD:-jalnetra123}
+  MINIO_BUCKET: ${MINIO_BUCKET:-jalnetra}
+  MINIO_SECURE: "false"
+  TITILER_URL: http://titiler:8000
+  # GDAL: only issue range requests for the .tif we asked for (see plan §"How windowed reads work")
+  GDAL_DISABLE_READDIR_ON_OPEN: EMPTY_DIR
+  CPL_VSIL_CURL_ALLOWED_EXTENSIONS: .tif
+
+x-backend: &backend
+  build:
+    context: ./backend
+  env_file:
+    - path: .env
+      required: false
+  environment:
+    <<: *backend-env
+  volumes:
+    - ./backend:/app
+    # Earth Engine sign-in from `earthengine authenticate` on the host (dev). A
+    # service-account key via GEE_SERVICE_ACCOUNT_KEY takes precedence when set.
+    - ${EARTHENGINE_CREDENTIALS_DIR:-~/.config/earthengine}:/root/.config/earthengine:ro
+  depends_on:
+    postgres:
+      condition: service_healthy
+    redis:
+      condition: service_healthy
+    minio:
+      condition: service_healthy
+
+services:
+  api:
+    <<: *backend
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    ports:
+      - "8000:8000"
+
+  # One worker pool per cost class (S12): a slow PDF never blocks a STAC read.
+  # Each pool serves Prometheus metrics on :9100 inside the compose network.
+  worker-ingestion:
+    <<: *backend
+    command: celery -A app.workers.celery_app:celery_app worker --loglevel=INFO --concurrency=${WORKERS_INGESTION:-2} -Q default,ingestion -n ingestion@%h
+
+  worker-processing:
+    <<: *backend
+    command: celery -A app.workers.celery_app:celery_app worker --loglevel=INFO --concurrency=${WORKERS_PROCESSING:-2} -Q processing -n processing@%h
+
+  worker-scoring:
+    <<: *backend
+    command: celery -A app.workers.celery_app:celery_app worker --loglevel=INFO --concurrency=${WORKERS_SCORING:-1} -Q scoring -n scoring@%h
+
+  worker-reporting:
+    <<: *backend
+    command: celery -A app.workers.celery_app:celery_app worker --loglevel=INFO --concurrency=${WORKERS_REPORTING:-1} -Q reporting -n reporting@%h
+
+  beat:
+    <<: *backend
+    command: celery -A app.workers.celery_app:celery_app beat --loglevel=INFO
+
+  postgres:
+    # TimescaleDB HA image ships PostGIS and preloads timescaledb.
+    image: timescale/timescaledb-ha:pg16
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-jalnetra}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-jalnetra}
+      POSTGRES_DB: ${POSTGRES_DB:-jalnetra}
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/home/postgres/pgdata/data
+      - ./infra/init-sql:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-jalnetra} -d ${POSTGRES_DB:-jalnetra}"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+
+  minio:
+    image: quay.io/minio/minio:latest
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER:-jalnetra}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:-jalnetra123}
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - miniodata:/data
+    healthcheck:
+      test: ["CMD", "mc", "ready", "local"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+
+  minio-init:
+    # One-shot: create the bucket the pipeline writes chips/composites/briefs into.
+    image: quay.io/minio/mc:latest
+    depends_on:
+      minio:
+        condition: service_healthy
+    entrypoint: >
+      /bin/sh -c "
+      mc alias set local http://minio:9000 ${MINIO_ROOT_USER:-jalnetra} ${MINIO_ROOT_PASSWORD:-jalnetra123} &&
+      mc mb --ignore-existing local/${MINIO_BUCKET:-jalnetra} &&
+      echo 'bucket ready'"
+
+  titiler:
+    image: ghcr.io/developmentseed/titiler:latest
+    ports:
+      - "8001:8000"
+    environment:
+      # Newer titiler images default to port 80; keep 8000 so TITILER_URL and the 8001 mapping hold.
+      PORT: "8000"
+      # Point GDAL/rasterio at MinIO for s3:// COG chips.
+      AWS_ACCESS_KEY_ID: ${MINIO_ROOT_USER:-jalnetra}
+      AWS_SECRET_ACCESS_KEY: ${MINIO_ROOT_PASSWORD:-jalnetra123}
+      AWS_S3_ENDPOINT: minio:9000
+      AWS_VIRTUAL_HOSTING: "FALSE"
+      AWS_HTTPS: "NO"
+      GDAL_DISABLE_READDIR_ON_OPEN: EMPTY_DIR
+      CPL_VSIL_CURL_ALLOWED_EXTENSIONS: .tif
+      GDAL_HTTP_MERGE_CONSECUTIVE_RANGES: "YES"
+    depends_on:
+      minio:
+        condition: service_healthy
+
+  # --- ops profile: `docker compose --profile ops up -d` ---------------------------
+  flower:
+    <<: *backend
+    profiles: ["ops"]
+    command: celery -A app.workers.celery_app:celery_app flower --port=5555 --url_prefix=
+    ports:
+      - "5555:5555"
+
+  prometheus:
+    image: prom/prometheus:v2.53.0
+    profiles: ["ops"]
+    volumes:
+      - ./infra/prometheus:/etc/prometheus:ro
+      - promdata:/prometheus
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+      - --storage.tsdb.retention.time=30d
+    ports:
+      - "9090:9090"
+
+  grafana:
+    image: grafana/grafana:11.1.0
+    profiles: ["ops"]
+    environment:
+      GF_SECURITY_ADMIN_USER: ${GRAFANA_USER:-admin}
+      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_PASSWORD:-jalnetra}
+      GF_USERS_ALLOW_SIGN_UP: "false"
+    volumes:
+      - ./infra/grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./infra/grafana/dashboards:/var/lib/grafana/dashboards:ro
+      - grafanadata:/var/lib/grafana
+    ports:
+      - "3000:3000"
+    depends_on:
+      - prometheus
+
+volumes:
+  pgdata:
+  miniodata:
+  promdata:
+  grafanadata:

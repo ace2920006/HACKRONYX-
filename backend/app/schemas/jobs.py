@@ -1,0 +1,246 @@
+"""Pipeline job and validation schemas (S9)."""
+
+from __future__ import annotations
+
+from datetime import date, datetime
+from typing import Any, Literal
+
+from pydantic import BaseModel, ConfigDict, Field
+
+JobStatus = Literal["queued", "running", "done", "failed"]
+STAGES: tuple[str, ...] = ("ingestion", "mask", "indicators", "anomalies", "scoring", "alerts")
+
+
+class IngestJobRequest(BaseModel):
+    water_body_id: str
+    date_from: date
+    date_to: date | None = Field(default=None, description="defaults to date_from")
+    requested_by: str | None = Field(default=None, max_length=200)
+    max_scenes: int | None = Field(
+        default=None,
+        ge=1,
+        le=50,
+        description=(
+            "stop after this many usable scenes are ingested (a quick-look fetch); "
+            "omitted or null processes every usable scene in the window, as before"
+        ),
+    )
+
+    model_config = ConfigDict(
+        json_schema_extra={
+            "examples": [
+                {
+                    "water_body_id": "wb_khadakwasla",
+                    "date_from": "2026-09-01",
+                    "date_to": "2026-09-21",
+                }
+            ]
+        }
+    )
+
+
+class StageProgress(BaseModel):
+    stage: str
+    done: int
+    total: int
+    pct: float
+
+
+class JobOut(BaseModel):
+    job_id: str
+    kind: str
+    water_body_id: str
+    date_from: date
+    date_to: date
+    status: JobStatus
+    progress_pct: float = Field(ge=0, le=100)
+    current_stage: str | None = Field(description="first stage with pending work; null when done")
+    stages: list[StageProgress]
+    scenes_found: int
+    scenes_usable: int
+    alerts_created: int
+    celery_state: str | None
+    error: str | None
+    created_at: datetime
+    updated_at: datetime
+    finished_at: datetime | None
+
+    model_config = ConfigDict(
+        json_schema_extra={
+            "examples": [
+                {
+                    "job_id": "job_3f9c2b7e4a5d4c1e9b8a7f6e5d4c3b2a",
+                    "kind": "ingest",
+                    "water_body_id": "wb_khadakwasla",
+                    "date_from": "2026-09-01",
+                    "date_to": "2026-09-21",
+                    "status": "running",
+                    "progress_pct": 58.3,
+                    "current_stage": "indicators",
+                    "stages": [
+                        {"stage": "ingestion", "done": 4, "total": 4, "pct": 100},
+                        {"stage": "mask", "done": 4, "total": 4, "pct": 100},
+                        {"stage": "indicators", "done": 2, "total": 4, "pct": 50},
+                        {"stage": "anomalies", "done": 1, "total": 4, "pct": 25},
+                        {"stage": "scoring", "done": 1, "total": 4, "pct": 25},
+                        {"stage": "alerts", "done": 1, "total": 4, "pct": 25},
+                    ],
+                    "scenes_found": 5,
+                    "scenes_usable": 4,
+                    "alerts_created": 1,
+                    "celery_state": "SUCCESS",
+                    "error": None,
+                    "created_at": "2026-09-21T10:00:00Z",
+                    "updated_at": "2026-09-21T10:03:12Z",
+                    "finished_at": None,
+                }
+            ]
+        }
+    )
+
+
+class JobList(BaseModel):
+    items: list[JobOut]
+    next_cursor: str | None
+
+
+class LabResults(BaseModel):
+    turbidity_ntu: float | None = Field(default=None, ge=0)
+    chlorophyll_ug_l: float | None = Field(default=None, ge=0)
+    tss_mg_l: float | None = Field(default=None, ge=0)
+    do_mg_l: float | None = Field(default=None, ge=0)
+    ph: float | None = Field(default=None, ge=0, le=14)
+    temperature_c: float | None = None
+    conductivity_us_cm: float | None = Field(default=None, ge=0)
+
+
+class ValidationIn(BaseModel):
+    alert_id: str
+    sampled_on: date
+    lab_results: LabResults = Field(default_factory=LabResults)
+    observed_condition: str | None = Field(default=None, max_length=2000)
+    notes: str | None = Field(default=None, max_length=4000)
+    submitted_by: str | None = Field(default=None, max_length=200)
+
+    model_config = ConfigDict(
+        json_schema_extra={
+            "examples": [
+                {
+                    "alert_id": "alr_2026_0917_khadakwasla_z3",
+                    "sampled_on": "2026-09-19",
+                    "lab_results": {"turbidity_ntu": 48.0, "tss_mg_l": 62.0, "ph": 7.6},
+                    "observed_condition": "Brown plume near the eastern inlet, no odour.",
+                    "submitted_by": "RO Pune field team",
+                }
+            ]
+        }
+    )
+
+
+class ValidationOut(BaseModel):
+    id: int
+    alert_id: str
+    sampled_on: date
+    lab_results: dict[str, Any]
+    observed_condition: str | None
+    notes: str | None
+    submitted_by: str | None
+    verdict: Literal["matched", "not_matched", "inconclusive"] | None
+    verdict_reason: str | None
+    alert_severity: str | None = None
+    alert_indicator: str | None = None
+    alert_priority_score: float | None = None
+    alert_observed_on: date | None = None
+    photo_url: str | None = None
+    created_at: datetime
+
+    model_config = ConfigDict(
+        json_schema_extra={
+            "examples": [
+                {
+                    "id": 12,
+                    "alert_id": "alr_2026_0917_khadakwasla_z3",
+                    "sampled_on": "2026-09-19",
+                    "lab_results": {"turbidity_ntu": 48.0, "tss_mg_l": 62.0, "ph": 7.6},
+                    "observed_condition": "Brown plume near the eastern inlet, no odour.",
+                    "notes": None,
+                    "submitted_by": "RO Pune field team",
+                    "verdict": "matched",
+                    "verdict_reason": "turbidity 48 NTU is at or above the threshold of 10 NTU",
+                    "alert_severity": "high",
+                    "alert_indicator": "ndti_turbidity",
+                    "alert_priority_score": 72.0,
+                    "alert_observed_on": "2026-09-17",
+                    "photo_url": "/api/v1/validations/12/photo",
+                    "created_at": "2026-09-19T11:20:00Z",
+                }
+            ]
+        }
+    )
+
+
+class VerdictBucket(BaseModel):
+    matched: int
+    not_matched: int
+    inconclusive: int
+    n: int = 0
+    precision: float | None = Field(description="matched / (matched + not_matched)")
+
+
+class ValidationSummary(BaseModel):
+    as_of: datetime
+    last_validation_at: datetime | None
+    overall: VerdictBucket
+    by_indicator: dict[str, VerdictBucket]
+    by_severity: dict[str, VerdictBucket]
+    note: str
+
+    model_config = ConfigDict(
+        json_schema_extra={
+            "examples": [
+                {
+                    "as_of": "2026-09-21T12:00:00Z",
+                    "last_validation_at": "2026-09-19T11:20:00Z",
+                    "overall": {
+                        "matched": 7,
+                        "not_matched": 2,
+                        "inconclusive": 1,
+                        "n": 10,
+                        "precision": 0.778,
+                    },
+                    "by_indicator": {
+                        "ndti_turbidity": {
+                            "matched": 5,
+                            "not_matched": 1,
+                            "inconclusive": 1,
+                            "n": 7,
+                            "precision": 0.833,
+                        }
+                    },
+                    "by_severity": {
+                        "high": {
+                            "matched": 4,
+                            "not_matched": 0,
+                            "inconclusive": 0,
+                            "n": 4,
+                            "precision": 1.0,
+                        },
+                        "medium": {
+                            "matched": 3,
+                            "not_matched": 2,
+                            "inconclusive": 1,
+                            "n": 6,
+                            "precision": 0.6,
+                        },
+                    },
+                    "note": "precision = matched / (matched + not_matched)",
+                }
+            ]
+        }
+    )
+
+
+class ValidationList(BaseModel):
+    items: list[ValidationOut]
+    total: int
+    next_cursor: str | None
