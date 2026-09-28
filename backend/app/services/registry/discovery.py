@@ -73,7 +73,7 @@ class DiscoveredWaterBody:
         return as_multipolygon(shapely.make_valid(shape(self.geometry)))
 
 
-_NOMINATIM_USER_AGENT = "JalNetra-Water-Platform"
+_NOMINATIM_USER_AGENT = "HydroSentinel-Water-Platform"
 
 
 def _parse_hit(hit: dict[str, Any], query: str) -> GeocodeResult:

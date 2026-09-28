@@ -50,8 +50,8 @@ class LiveImageryOut(BaseModel):
                 {
                     "vis": "truecolor",
                     "mode": "latest",
-                    "tile_url": "https://earthengine.googleapis.com/v1/projects/jalnetra/maps/abc/tiles/{z}/{x}/{y}",
-                    "map_id": "projects/jalnetra/maps/abc",
+                    "tile_url": "https://earthengine.googleapis.com/v1/projects/hydrosentinel/maps/abc/tiles/{z}/{x}/{y}",
+                    "map_id": "projects/hydrosentinel/maps/abc",
                     "scene_date": "2026-09-19",
                     "scene_count": 2,
                     "cloud_pct": 8.4,

@@ -137,7 +137,7 @@ backend/    FastAPI app + Celery workers (Python 3.11, uv)
   app/workers/    Celery app, tasks, beat schedule, signals
   app/schemas/    Pydantic v2 response models (the API contract)
   app/cli.py      resumable backfill, ops gauges
-  tests/          unit tests (integration tests behind JALNETRA_INTEGRATION=1)
+  tests/          unit tests (integration tests behind HYDROSENTINEL_INTEGRATION=1)
 frontend/   Vite + React 18 + TypeScript dashboard
 infra/      compose init SQL, Prometheus + Grafana provisioning
 notebooks/  exploration
@@ -492,7 +492,7 @@ Export the schema with
 ## Operations and observability
 
 ```sh
-make ops                                   # stack + Flower :5555, Prometheus :9090, Grafana :3000 (admin / jalnetra)
+make ops                                   # stack + Flower :5555, Prometheus :9090, Grafana :3000 (admin / hydrosentinel)
 docker compose run --rm api python -m app.cli ops-gauges
 ```
 
@@ -505,7 +505,7 @@ docker compose run --rm api python -m app.cli ops-gauges
   gauges for days since last usable scene per Tier 1 body, open alerts,
   baseline-building zones, validation precision. API at `/metrics`, workers on
   `:9100`.
-- **Grafana** — provisioned dashboard `infra/grafana/dashboards/jalnetra-pipeline.json`;
+- **Grafana** — provisioned dashboard `infra/grafana/dashboards/hydrosentinel-pipeline.json`;
   alert rules in `infra/prometheus/alerts.yml` (`Tier1WaterBodyStale`, STAC
   failing, slow stages, worker metrics down, dispatch failures).
 - **Sentry** — `SENTRY_DSN`; every task event tagged with body / scene / alert.
@@ -519,7 +519,7 @@ cd backend
 uv sync                                        # Python 3.11 venv
 uv run ruff check . && uv run ruff format --check . && uv run mypy .
 uv run pytest                                  # unit suite (~160 tests)
-docker compose run --rm -e JALNETRA_INTEGRATION=1 api pytest   # + live-stack tests
+docker compose run --rm -e HYDROSENTINEL_INTEGRATION=1 api pytest   # + live-stack tests
 uv run uvicorn app.main:app --reload
 cd ../frontend && npx tsc -b && npx vite build
 ```

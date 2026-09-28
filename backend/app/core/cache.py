@@ -21,7 +21,7 @@ from app.core.config import Settings, get_settings
 
 log = logging.getLogger(__name__)
 
-PREFIX = "jalnetra:api:"
+PREFIX = "hydrosentinel:api:"
 
 
 @lru_cache

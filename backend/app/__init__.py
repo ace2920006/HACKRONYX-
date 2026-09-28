@@ -1,4 +1,4 @@
-"""JalNetra backend.
+"""HydroSentinel backend.
 
 PRODUCT BOUNDARY: the system detects POTENTIAL ANOMALIES in satellite-observable
 indicators and prioritises zones for ground investigation. It never claims to

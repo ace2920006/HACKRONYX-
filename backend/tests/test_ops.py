@@ -52,20 +52,20 @@ def test_metrics_registry_and_endpoint() -> None:
     metrics.task_duration.labels(stage="mask", status="success").observe(1.5)
     text = metrics.render().decode()
     for name in (
-        "jalnetra_scenes_ingested_total",
-        "jalnetra_scenes_rejected_cloud_total",
-        "jalnetra_zones_processed_total",
-        "jalnetra_alerts_raised_total",
-        "jalnetra_alerts_gated_rainfall_total",
-        "jalnetra_task_duration_seconds",
-        "jalnetra_stac_request_failures_total",
-        "jalnetra_tier1_days_since_usable_scene",
+        "hydrosentinel_scenes_ingested_total",
+        "hydrosentinel_scenes_rejected_cloud_total",
+        "hydrosentinel_zones_processed_total",
+        "hydrosentinel_alerts_raised_total",
+        "hydrosentinel_alerts_gated_rainfall_total",
+        "hydrosentinel_task_duration_seconds",
+        "hydrosentinel_stac_request_failures_total",
+        "hydrosentinel_tier1_days_since_usable_scene",
     ):
         assert name in text, name
     assert metrics.stage_of("app.workers.tasks.compute_water_mask") == "mask"
     with TestClient(app) as client:
         r = client.get("/metrics")
-        assert r.status_code == 200 and "jalnetra_task_duration_seconds" in r.text
+        assert r.status_code == 200 and "hydrosentinel_task_duration_seconds" in r.text
 
 
 class _Src:

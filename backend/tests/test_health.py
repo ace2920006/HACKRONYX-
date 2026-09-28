@@ -39,7 +39,7 @@ async def test_health_ok(client: AsyncClient, all_ok: None) -> None:
     assert body["status"] == "ok"
     assert set(body["services"]) == {"postgres", "redis", "minio"}
     assert all(s["status"] == "ok" for s in body["services"].values())
-    assert body["app"] == "JalNetra"
+    assert body["app"] == "HydroSentinel"
 
 
 async def test_health_degraded_returns_503(

@@ -1,8 +1,8 @@
 {
- "uid": "jalnetra-pipeline",
- "title": "JalNetra pipeline",
+ "uid": "hydrosentinel-pipeline",
+ "title": "HydroSentinel pipeline",
  "tags": [
-  "jalnetra"
+  "hydrosentinel"
  ],
  "timezone": "browser",
  "schemaVersion": 39,
@@ -30,7 +30,7 @@
    "targets": [
     {
      "refId": "A",
-     "expr": "sum(jalnetra_open_alerts)",
+     "expr": "sum(hydrosentinel_open_alerts)",
      "legendFormat": "open"
     }
    ],
@@ -64,7 +64,7 @@
    "targets": [
     {
      "refId": "A",
-     "expr": "max(jalnetra_tier1_days_since_usable_scene < 9999)",
+     "expr": "max(hydrosentinel_tier1_days_since_usable_scene < 9999)",
      "legendFormat": "days"
     }
    ],
@@ -100,7 +100,7 @@
    "targets": [
     {
      "refId": "A",
-     "expr": "jalnetra_baseline_building_zones",
+     "expr": "hydrosentinel_baseline_building_zones",
      "legendFormat": "zones"
     }
    ],
@@ -134,7 +134,7 @@
    "targets": [
     {
      "refId": "A",
-     "expr": "jalnetra_validation_precision",
+     "expr": "hydrosentinel_validation_precision",
      "legendFormat": "precision"
     }
    ],
@@ -170,7 +170,7 @@
    "targets": [
     {
      "refId": "A",
-     "expr": "sum(increase(jalnetra_stac_fallbacks_total[1h]))",
+     "expr": "sum(increase(hydrosentinel_stac_fallbacks_total[1h]))",
      "legendFormat": "fallbacks"
     }
    ],
@@ -204,7 +204,7 @@
    "targets": [
     {
      "refId": "A",
-     "expr": "sum(increase(jalnetra_dispatches_total{status=\"failed\"}[24h]))",
+     "expr": "sum(increase(hydrosentinel_dispatches_total{status=\"failed\"}[24h]))",
      "legendFormat": "failed"
     }
    ],
@@ -238,17 +238,17 @@
    "targets": [
     {
      "refId": "A",
-     "expr": "sum(rate(jalnetra_scenes_ingested_total[1h]))*3600",
+     "expr": "sum(rate(hydrosentinel_scenes_ingested_total[1h]))*3600",
      "legendFormat": "ingested"
     },
     {
      "refId": "B",
-     "expr": "sum(rate(jalnetra_scenes_rejected_cloud_total{stage=\"stac\"}[1h]))*3600",
+     "expr": "sum(rate(hydrosentinel_scenes_rejected_cloud_total{stage=\"stac\"}[1h]))*3600",
      "legendFormat": "rejected @ STAC"
     },
     {
      "refId": "C",
-     "expr": "sum(rate(jalnetra_scenes_rejected_cloud_total{stage=\"mask\"}[1h]))*3600",
+     "expr": "sum(rate(hydrosentinel_scenes_rejected_cloud_total{stage=\"mask\"}[1h]))*3600",
      "legendFormat": "rejected @ mask"
     }
    ],
@@ -274,12 +274,12 @@
    "targets": [
     {
      "refId": "A",
-     "expr": "sum(rate(jalnetra_zones_processed_total{outcome=\"accepted\"}[1h]))*3600",
+     "expr": "sum(rate(hydrosentinel_zones_processed_total{outcome=\"accepted\"}[1h]))*3600",
      "legendFormat": "accepted"
     },
     {
      "refId": "B",
-     "expr": "sum(rate(jalnetra_zones_processed_total{outcome=\"rejected\"}[1h]))*3600",
+     "expr": "sum(rate(hydrosentinel_zones_processed_total{outcome=\"rejected\"}[1h]))*3600",
      "legendFormat": "rejected"
     }
    ],
@@ -305,12 +305,12 @@
    "targets": [
     {
      "refId": "A",
-     "expr": "sum by (severity) (increase(jalnetra_alerts_raised_total{action=\"created\"}[1d]))",
+     "expr": "sum by (severity) (increase(hydrosentinel_alerts_raised_total{action=\"created\"}[1d]))",
      "legendFormat": "{{severity}}"
     },
     {
      "refId": "B",
-     "expr": "sum(increase(jalnetra_alerts_gated_rainfall_total[1d]))",
+     "expr": "sum(increase(hydrosentinel_alerts_gated_rainfall_total[1d]))",
      "legendFormat": "gated by rainfall"
     }
    ],
@@ -336,7 +336,7 @@
    "targets": [
     {
      "refId": "A",
-     "expr": "histogram_quantile(0.95, sum by (le, stage) (rate(jalnetra_task_duration_seconds_bucket[30m])))",
+     "expr": "histogram_quantile(0.95, sum by (le, stage) (rate(hydrosentinel_task_duration_seconds_bucket[30m])))",
      "legendFormat": "{{stage}}"
     }
    ],
@@ -364,7 +364,7 @@
    "targets": [
     {
      "refId": "A",
-     "expr": "sum by (source) (rate(jalnetra_stac_request_failures_total[1h]))*3600",
+     "expr": "sum by (source) (rate(hydrosentinel_stac_request_failures_total[1h]))*3600",
      "legendFormat": "{{source}}"
     }
    ],
@@ -390,7 +390,7 @@
    "targets": [
     {
      "refId": "A",
-     "expr": "jalnetra_tier1_days_since_usable_scene < 9999",
+     "expr": "hydrosentinel_tier1_days_since_usable_scene < 9999",
      "legendFormat": "{{water_body_id}}"
     }
    ],

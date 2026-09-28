@@ -31,7 +31,7 @@ def init_sentry(role: str, *, settings: Settings | None = None) -> bool:
     sentry_sdk.init(
         dsn=settings.sentry_dsn,
         environment=settings.app_env,
-        release=f"jalnetra@{settings.app_version}",
+        release=f"hydrosentinel@{settings.app_version}",
         traces_sample_rate=settings.sentry_traces_sample_rate,
         integrations=[CeleryIntegration(), FastApiIntegration(), SqlalchemyIntegration()],
         send_default_pii=False,

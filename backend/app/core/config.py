@@ -25,7 +25,7 @@ class Settings(BaseSettings):
     cors_origins: list[str] = Field(default_factory=lambda: ["http://localhost:5173"])
 
     # --- Database ---
-    database_url: str = "postgresql+asyncpg://jalnetra:jalnetra@localhost:5432/jalnetra"
+    database_url: str = "postgresql+asyncpg://hydrosentinel:hydrosentinel@localhost:5432/hydrosentinel"
 
     # --- Redis / Celery ---
     redis_url: str = "redis://localhost:6379/0"
@@ -34,9 +34,9 @@ class Settings(BaseSettings):
 
     # --- MinIO ---
     minio_endpoint: str = "localhost:9000"
-    minio_access_key: str = "jalnetra"
-    minio_secret_key: str = "jalnetra123"
-    minio_bucket: str = "jalnetra"
+    minio_access_key: str = "hydrosentinel"
+    minio_secret_key: str = "hydrosentinel123"
+    minio_bucket: str = "hydrosentinel"
     minio_secure: bool = False
 
     # --- TiTiler ---
@@ -177,7 +177,7 @@ class Settings(BaseSettings):
     smtp_port: int = 587
     smtp_user: str | None = None
     smtp_password: str | None = None
-    smtp_from: str = "jalnetra@localhost"
+    smtp_from: str = "hydrosentinel@localhost"
     smtp_starttls: bool = True
 
     # --- API (L2) ---

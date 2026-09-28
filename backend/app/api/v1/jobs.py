@@ -157,7 +157,7 @@ async def job_report_pdf(job_id: str, refresh: bool = False, download: bool = Tr
     return Response(
         content=pdf,
         media_type="application/pdf",
-        headers={"Content-Disposition": f'{disposition}; filename="jalnetra-{job_id}.pdf"'},
+        headers={"Content-Disposition": f'{disposition}; filename="hydrosentinel-{job_id}.pdf"'},
     )
 
 
@@ -177,5 +177,5 @@ async def job_report_csv(job_id: str, refresh: bool = False) -> Response:
     return Response(
         content=blob,
         media_type="text/csv; charset=utf-8",
-        headers={"Content-Disposition": f'attachment; filename="jalnetra-{job_id}.csv"'},
+        headers={"Content-Disposition": f'attachment; filename="hydrosentinel-{job_id}.csv"'},
     )

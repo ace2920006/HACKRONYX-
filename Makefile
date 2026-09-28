@@ -1,4 +1,4 @@
-# JalNetra developer entrypoints. Every target that touches services runs
+# HydroSentinel developer entrypoints. Every target that touches services runs
 # inside Docker Compose so a clean clone only needs Docker.
 COMPOSE ?= docker compose
 UV      ?= uv
@@ -27,7 +27,7 @@ test:          ## Run the backend unit tests inside the api image
 	$(COMPOSE) run --rm api pytest
 
 test-integration: ## Run unit + integration tests against the live stack
-	$(COMPOSE) run --rm -e JALNETRA_INTEGRATION=1 api pytest
+	$(COMPOSE) run --rm -e HYDROSENTINEL_INTEGRATION=1 api pytest
 
 lint:          ## ruff + mypy (local, via uv)
 	cd backend && $(UV) run ruff check . && $(UV) run ruff format --check . && $(UV) run mypy .
@@ -54,7 +54,7 @@ shell:         ## Shell inside the api container
 	$(COMPOSE) run --rm api bash
 
 psql:          ## psql into the database
-	$(COMPOSE) exec postgres psql -U jalnetra -d jalnetra
+	$(COMPOSE) exec postgres psql -U hydrosentinel -d hydrosentinel
 
 clean:         ## Stop the stack and delete volumes
 	$(COMPOSE) down -v --remove-orphans

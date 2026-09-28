@@ -836,7 +836,7 @@ export interface components {
         /**
          * HealthResponse
          * @example {
-         *       "app": "JalNetra",
+         *       "app": "HydroSentinel",
          *       "env": "dev",
          *       "services": {
          *         "minio": {
@@ -1171,11 +1171,11 @@ export interface components {
          *       "cached": false,
          *       "cloud_pct": 8.4,
          *       "collection": "COPERNICUS/S2_SR_HARMONIZED",
-         *       "map_id": "projects/jalnetra/maps/abc",
+         *       "map_id": "projects/hydrosentinel/maps/abc",
          *       "mode": "latest",
          *       "scene_count": 2,
          *       "scene_date": "2026-09-19",
-         *       "tile_url": "https://earthengine.googleapis.com/v1/projects/jalnetra/maps/abc/tiles/{z}/{x}/{y}",
+         *       "tile_url": "https://earthengine.googleapis.com/v1/projects/hydrosentinel/maps/abc/tiles/{z}/{x}/{y}",
          *       "vis": "truecolor",
          *       "window_from": "2026-08-22",
          *       "window_to": "2026-09-21"

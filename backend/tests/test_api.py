@@ -73,9 +73,9 @@ def test_cursor_roundtrip_and_validation() -> None:
 
 
 def test_tile_styles_per_layer() -> None:
-    s = Settings(minio_bucket="jalnetra")
+    s = Settings(minio_bucket="hydrosentinel")
     p = titiler_params("chips/wb_x/2026-09-17/body/ndti_turbidity.tif", s)
-    assert p["url"] == "s3://jalnetra/chips/wb_x/2026-09-17/body/ndti_turbidity.tif"
+    assert p["url"] == "s3://hydrosentinel/chips/wb_x/2026-09-17/body/ndti_turbidity.tif"
     assert p["colormap_name"] == "ylorbr" and p["rescale"] == "-0.3,0.5"  # sequential amber
     mask = titiler_params("chips/wb_x/2026-09-17/body/watermask.tif", s)
     assert "colormap_name" not in mask and '"1"' in mask["colormap"] and mask["nodata"] == "255"

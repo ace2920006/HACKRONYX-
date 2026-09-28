@@ -6,13 +6,13 @@ from httpx import ASGITransport, AsyncClient
 
 from app.core.config import Settings, get_settings
 
-INTEGRATION = os.environ.get("JALNETRA_INTEGRATION") == "1"
+INTEGRATION = os.environ.get("HYDROSENTINEL_INTEGRATION") == "1"
 
 
 def pytest_collection_modifyitems(items: list[pytest.Item]) -> None:
     if INTEGRATION:
         return
-    skip = pytest.mark.skip(reason="set JALNETRA_INTEGRATION=1 to run against the live stack")
+    skip = pytest.mark.skip(reason="set HYDROSENTINEL_INTEGRATION=1 to run against the live stack")
     for item in items:
         if "integration" in item.keywords:
             item.add_marker(skip)

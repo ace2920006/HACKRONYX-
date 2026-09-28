@@ -1,4 +1,4 @@
-"""JalNetra Telegram bot (Phase 2, Layer 1): a GPT-4o-mini assistant that
+"""HydroSentinel Telegram bot (Phase 2, Layer 1): a GPT-4o-mini assistant that
 explains water-quality indicators and satellite monitoring. Location-based
 lake discovery ("Layer 2") is not wired up yet -- /start already tells users
 it's coming, so the promise and the code stay in sync.
@@ -134,7 +134,7 @@ def build_application() -> Application:
 def main() -> None:
     configure_logging(os.getenv("LOG_LEVEL", "INFO"))
     application = build_application()
-    log.info("JalNetra telegram bot starting (polling)")
+    log.info("HydroSentinel telegram bot starting (polling)")
     application.run_polling(allowed_updates=Update.ALL_TYPES)
 
 

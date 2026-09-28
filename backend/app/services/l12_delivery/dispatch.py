@@ -14,7 +14,7 @@ A recipient receives an alert when all of:
 laptop with a copied production recipients table never pages a regional
 office. When off, every delivery is logged as ``skipped``.
 
-Webhook bodies are the frozen alert JSON; ``X-JalNetra-Signature`` carries an
+Webhook bodies are the frozen alert JSON; ``X-HydroSentinel-Signature`` carries an
 HMAC-SHA256 of the body under the recipient's secret when one is set.
 """
 
@@ -128,10 +128,10 @@ def sign(body: bytes, secret: str | None) -> str | None:
 
 def send_webhook(recipient: Recipient, payload: AlertOut, *, settings: Settings) -> str:
     body = payload.model_dump_json().encode()
-    headers = {"Content-Type": "application/json", "X-JalNetra-Event": "alert"}
+    headers = {"Content-Type": "application/json", "X-HydroSentinel-Event": "alert"}
     sig = sign(body, recipient.secret)
     if sig:
-        headers["X-JalNetra-Signature"] = sig
+        headers["X-HydroSentinel-Signature"] = sig
     try:
         r = httpx.post(
             recipient.target, content=body, headers=headers, timeout=settings.dispatch_timeout_s

@@ -274,7 +274,7 @@ async def test_live_endpoint_returns_a_tile_template(
     client: AsyncClient, monkeypatch: pytest.MonkeyPatch
 ) -> None:
     monkeypatch.setenv("GEE_ENABLED", "true")
-    monkeypatch.setenv("GEE_PROJECT", "jalnetra-test")
+    monkeypatch.setenv("GEE_PROJECT", "hydrosentinel-test")
     monkeypatch.setenv("API_CACHE_ENABLED", "false")
     get_settings.cache_clear()  # the client fixture built the app before the env was set
     calls: list[dict[str, Any]] = []
@@ -319,7 +319,7 @@ async def test_live_endpoint_maps_no_scene_to_404(
     client: AsyncClient, monkeypatch: pytest.MonkeyPatch
 ) -> None:
     monkeypatch.setenv("GEE_ENABLED", "true")
-    monkeypatch.setenv("GEE_PROJECT", "jalnetra-test")
+    monkeypatch.setenv("GEE_PROJECT", "hydrosentinel-test")
     monkeypatch.setenv("API_CACHE_ENABLED", "false")
     get_settings.cache_clear()  # the client fixture built the app before the env was set
 

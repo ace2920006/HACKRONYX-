@@ -21,7 +21,7 @@ client = OpenAI(api_key=api_key)
 try:
     response = client.chat.completions.create(
         model=os.getenv("OPENAI_MODEL", "gpt-4o-mini"),
-        messages=[{"role": "user", "content": "Hello! Confirm you are JalNetra AI assistant in 1 sentence."}],
+        messages=[{"role": "user", "content": "Hello! Confirm you are HydroSentinel AI assistant in 1 sentence."}],
     )
     print("SUCCESS! OpenAI response:", response.choices[0].message.content)
 except Exception as e:

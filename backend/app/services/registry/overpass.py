@@ -14,7 +14,7 @@ from shapely.ops import linemerge, polygonize, unary_union
 
 OVERPASS_URL = "https://overpass-api.de/api/interpreter"
 # Overpass answers 406 to requests without an explicit Accept / User-Agent.
-HEADERS = {"Accept": "application/json", "User-Agent": "JalNetra/0.1 (water-quality research)"}
+HEADERS = {"Accept": "application/json", "User-Agent": "HydroSentinel/0.1 (water-quality research)"}
 
 log = logging.getLogger(__name__)
 

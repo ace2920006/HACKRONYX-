@@ -344,11 +344,11 @@ def test_contract_shape_matches_plan_example() -> None:
 
 
 def test_email_and_signature() -> None:
-    settings = Settings(public_base_url="https://jalnetra.example.org/")
+    settings = Settings(public_base_url="https://hydrosentinel.example.org/")
     subject, html = render_email(_alert_out(), settings=settings)
-    assert subject == "[JalNetra] HIGH anomaly - Khadakwasla Reservoir, Eastern zone - 2026-09-17"
+    assert subject == "[HydroSentinel] HIGH anomaly - Khadakwasla Reservoir, Eastern zone - 2026-09-17"
     assert (
-        "https://jalnetra.example.org/api/v1/alerts/alr_2026_0917_khadakwasla_z3/brief.pdf" in html
+        "https://hydrosentinel.example.org/api/v1/alerts/alr_2026_0917_khadakwasla_z3/brief.pdf" in html
     )
     assert "Rainfall in preceding 72h: -0.13" in html and "Satellite-observed anomaly" in html
     assert "pollut" not in html.lower()

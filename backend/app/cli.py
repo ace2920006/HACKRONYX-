@@ -45,7 +45,7 @@ from app.services.l09_fusion.service import process_water_body as process_scores
 from app.services.l11_alerts.assembler import assemble_scene
 from app.services.ops.gauges import refresh_ops_gauges
 
-log = logging.getLogger("jalnetra.cli")
+log = logging.getLogger("hydrosentinel.cli")
 
 
 # --- checkpoints ----------------------------------------------------------------
@@ -240,7 +240,7 @@ def cmd_ops_gauges(_: argparse.Namespace) -> int:
 
 def build_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(
-        prog="jalnetra", description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter
+        prog="hydrosentinel", description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter
     )
     sub = p.add_subparsers(dest="command", required=True)
 
